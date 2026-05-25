@@ -266,6 +266,49 @@ p { color: var(--text-secondary); line-height: 1.8; }
   letter-spacing: -0.03em;
 }
 
+  /* Review header layout improvements */
+  .review-header {
+    padding: 48px 0;
+  }
+
+  .review-header .container {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    text-align: left;
+  }
+
+  .review-logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+    background: var(--accent-gradient);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    flex: 0 0 96px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .review-header-info {
+    flex: 1 1 auto;
+  }
+
+  .review-header-info h1 {
+    margin: 0 0 6px 0;
+    line-height: 1.05;
+  }
+
+  .review-header-info p {
+    margin: 6px 0 0 0;
+    color: var(--text-secondary);
+    max-width: 900px;
+    font-size: 1.05rem;
+  }
+
 .logo-icon {
   width: 36px;
   height: 36px;
