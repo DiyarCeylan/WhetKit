@@ -28,4 +28,12 @@
     <loc>https://diyarceylan.github.io/dev-tools/terms/</loc>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://diyarceylan.github.io/dev-tools/about/</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://diyarceylan.github.io/dev-tools/contact/</loc>
+    <priority>0.5</priority>
+  </url>
 </urlset>

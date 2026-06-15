@@ -377,7 +377,8 @@
     btnDownload.addEventListener('click', function() {
       if (!decodedFileData) return;
       var blob = base64ToBlob(input.value.trim(), decodedFileData.mime);
-      var ext = decodedFileData.mime.split('/')[1] || 'bin';
+      var mimeMap = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif', 'image/webp': 'webp', 'application/pdf': 'pdf', 'application/zip': 'zip', 'application/octet-stream': 'bin' };
+      var ext = mimeMap[decodedFileData.mime] || decodedFileData.mime.split('/')[1] || 'bin';
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url;

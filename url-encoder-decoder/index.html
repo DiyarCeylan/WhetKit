@@ -238,7 +238,7 @@
       const val = input.value.trim();
       if (!val) return showToast('Please enter text to encode');
       try {
-        lastResult = encodeURIComponent(val);
+        lastResult = encodeAll.checked ? encodeURIComponent(val) : encodeURI(val);
         showResult(lastResult);
       } catch (e) {
         showToast('Error: ' + e.message);
