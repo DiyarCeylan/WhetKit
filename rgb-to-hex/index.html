@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RGB to HEX Converter — DevTools</title>
-  <meta name="description" content="Free online RGB to HEX converter. Convert RGB color values to hex codes instantly. Supports rgb(), rgba(), and comma-separated values. 100% client-side.">
+  <meta name="description" content="Free online RGB to HEX converter. Convert RGB and RGBA color values to hex codes instantly with sliders or manual input. 100% client-side.">
   <meta name="robots" content="index, follow">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <script data-goatcounter="https://dev-tools.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -19,7 +19,7 @@
     "operatingSystem": "All",
     "browserRequirements": "JavaScript",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "description": "Free online RGB to HEX converter. Convert RGB color values to hex codes instantly. 100% client-side."
+    "description": "Convert RGB and RGBA color values to hex codes instantly. 100% client-side."
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,9 +32,9 @@
       --bg: oklch(0.985 0.002 280); --bg-secondary: oklch(0.96 0.004 280); --bg-card: oklch(0.99 0.002 280 / 0.6);
       --text: oklch(0.15 0.02 280); --text-secondary: oklch(0.4 0.02 280); --text-muted: oklch(0.65 0.01 280);
       --text-on-brand: oklch(1 0 0);
-      --border: oklch(0.88 0.01 280 / 0.5); --border-hover: oklch(0.8 0.04 280);
+      --border: oklch(0.88 0.01 280 / 0.5);
       --radius-sm: 8px; --radius: 14px; --radius-lg: 20px;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04); --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
       --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
@@ -42,7 +42,7 @@
     [data-theme="dark"] {
       --bg: oklch(0.12 0.02 270); --bg-secondary: oklch(0.16 0.02 270); --bg-card: oklch(0.18 0.02 270 / 0.6);
       --text: oklch(0.95 0.01 280); --text-secondary: oklch(0.7 0.02 280); --text-muted: oklch(0.5 0.02 280);
-      --border: oklch(0.25 0.02 280 / 0.5); --border-hover: oklch(0.35 0.04 280);
+      --border: oklch(0.25 0.02 280 / 0.5);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; display: flex; flex-direction: column; }
@@ -64,39 +64,32 @@
     .hero h1 { font-size: clamp(2rem,4vw,2.8rem); font-weight: 900; letter-spacing: -0.03em; margin-bottom: 10px; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .hero p { color: var(--text-secondary); font-size: clamp(0.95rem,1.5vw,1.05rem); max-width: 500px; margin: 0 auto; }
 
-    .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; animation: fadeSlideUp 0.7s ease-out 0.15s both; }
-    @media (max-width: 768px) { .color-grid { grid-template-columns: 1fr; } }
+    .tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; animation: fadeSlideUp 0.7s ease-out 0.15s both; }
+    @media (max-width: 768px) { .tool-grid { grid-template-columns: 1fr; } }
 
     .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: var(--shadow-sm); }
     .card h2 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--text-secondary); }
 
-    .preview-wrap { margin-bottom: 20px; }
-    .color-preview { width: 100%; height: 120px; border-radius: var(--radius); border: 1px solid var(--border); transition: background 0.3s; position: relative; overflow: hidden; }
-    .color-preview input[type="color"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-    .color-preview-text { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; text-shadow: 0 1px 4px rgb(0 0 0 / 0.3); pointer-events: none; text-transform: uppercase; letter-spacing: 0.05em; }
+    .channel-group { margin-bottom: 16px; }
+    .channel-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .channel-label { font-weight: 600; font-size: 0.85rem; min-width: 55px; color: var(--text-secondary); }
+    .channel-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; background: var(--border); outline: none; }
+    .channel-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--brand); cursor: pointer; border: 2px solid var(--bg); box-shadow: var(--shadow-sm); }
+    .channel-input { width: 70px; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.9rem; text-align: center; background: oklch(0 0 0 / 0.03); color: var(--text); outline: none; }
+    [data-theme="dark"] .channel-input { background: oklch(1 0 0 / 0.05); }
+    .channel-input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-light); }
+    .slider-red::-webkit-slider-thumb { background: #ff4444; }
+    .slider-green::-webkit-slider-thumb { background: #44bb44; }
+    .slider-blue::-webkit-slider-thumb { background: #4488ff; }
 
-    .input-group { display: flex; gap: 10px; margin-bottom: 16px; }
-    .input-group input { flex: 1; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.85rem; background: oklch(0 0 0 / 0.03); color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-    [data-theme="dark"] .input-group input { background: oklch(1 0 0 / 0.05); }
-    .input-group input:focus { border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-light); }
+    .color-preview { width: 100%; height: 100px; border-radius: var(--radius); border: 1px solid var(--border); margin-bottom: 20px; transition: background 0.3s; }
 
-    .format-list { display: flex; flex-direction: column; gap: 10px; }
-    .format-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: oklch(0 0 0 / 0.02); transition: border-color 0.2s; cursor: pointer; }
-    [data-theme="dark"] .format-row { background: oklch(1 0 0 / 0.03); }
-    .format-row:hover { border-color: var(--brand); }
-    .format-row:active { transform: scale(0.99); }
-    .format-label { font-weight: 600; font-size: 0.8rem; color: var(--text-secondary); min-width: 75px; }
-    .format-value { font-family: var(--font-mono); font-size: 0.825rem; color: var(--text); word-break: break-all; text-align: right; flex: 1; margin-left: 12px; }
-
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border: none; border-radius: var(--radius-sm); font-family: var(--font); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.25s cubic-bezier(0.22,1,0.36,1); }
-    .btn:active { transform: scale(0.95); }
-    .btn-primary { background: var(--brand-gradient); color: var(--text-on-brand); }
-    .btn-primary:hover { box-shadow: 0 4px 16px oklch(0.55 0.24 265 / 0.35); transform: translateY(-1px); }
-
-    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-    .preset-group { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
-    .preset-swatch { width: 36px; height: 36px; border-radius: 8px; border: 2px solid var(--border); cursor: pointer; transition: all 0.2s; }
-    .preset-swatch:hover { transform: scale(1.12); border-color: var(--brand); }
+    .result-group { margin-top: 16px; }
+    .result-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; cursor: pointer; transition: border-color 0.2s; }
+    .result-row:hover { border-color: var(--brand); }
+    .result-row:active { transform: scale(0.99); }
+    .result-row .label { font-weight: 600; font-size: 0.85rem; color: var(--text-secondary); }
+    .result-row .value { font-family: var(--font-mono); font-size: 0.9rem; color: var(--text); }
 
     .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 999; }
     .toast.show { opacity: 1; }
@@ -106,8 +99,7 @@
 
     .faq { max-width: 900px; margin: 0 auto; }
     .faq h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; text-align: center; }
-    .faq-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; background: var(--bg-card); backdrop-filter: blur(8px); transition: border-color 0.2s; }
-    .faq-item:hover { border-color: var(--border-hover); }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; background: var(--bg-card); backdrop-filter: blur(8px); }
     .faq-q { width: 100%; padding: 16px 20px; background: none; border: none; font-family: var(--font); font-size: 0.95rem; font-weight: 600; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-align: left; }
     .faq-q:hover { background: var(--bg-secondary); }
     .faq-q svg { transition: transform 0.25s ease; flex-shrink: 0; }
@@ -124,7 +116,7 @@
 
     @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0s!important; transition-duration:0s!important; } }
-    @media print { header,footer,.theme-toggle,.btn-group { display:none; } }
+    @media print { header,footer,.theme-toggle { display:none; } }
   </style>
 </head>
 <body>
@@ -146,73 +138,51 @@
   <main>
     <div class="hero">
       <h1>RGB to HEX Converter</h1>
-      <p>Convert RGB color values to hex codes instantly</p>
+      <p>Slide or type RGB values to get the matching hex color code.</p>
     </div>
 
-    <div class="color-grid">
+    <div class="tool-grid">
       <section class="card">
         <h2>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
-          Input
+          RGB Channels
         </h2>
-        <div class="preview-wrap">
-          <div class="color-preview" id="preview" style="background: var(--bg-card);">
-            <input type="color" id="color-picker" value="#6325d6">
-            <div class="color-preview-text" id="preview-text" style="color:var(--text-muted);">Enter a color</div>
+        <div class="color-preview" id="preview" style="background:#6325d6;"></div>
+        <div class="channel-group">
+          <div class="channel-row">
+            <span class="channel-label" style="color:#ff4444;">Red</span>
+            <input type="range" class="channel-slider slider-red" id="slider-r" min="0" max="255" value="99">
+            <input type="number" class="channel-input" id="input-r" value="99" min="0" max="255">
           </div>
-        </div>
-        <div class="input-group">
-          <input type="text" id="color-input" placeholder="HEX, RGB, HSL or OKLCH..." value="" autofocus spellcheck="false">
-          <button class="btn btn-primary" id="btn-convert">Convert</button>
-        </div>
-        <div class="preset-group" id="presets">
-          <button class="preset-swatch" style="background:#6325d6" data-color="#6325d6" aria-label="Brand violet"></button>
-          <button class="preset-swatch" style="background:#ff4500" data-color="#ff4500" aria-label="Orange red"></button>
-          <button class="preset-swatch" style="background:#2196f3" data-color="#2196f3" aria-label="Blue"></button>
-          <button class="preset-swatch" style="background:#e91e63" data-color="#e91e63" aria-label="Pink"></button>
-          <button class="preset-swatch" style="background:#4caf50" data-color="#4caf50" aria-label="Green"></button>
-          <button class="preset-swatch" style="background:#ffeb3b" data-color="#ffeb3b" aria-label="Yellow"></button>
-          <button class="preset-swatch" style="background:#000" data-color="#000000" aria-label="Black"></button>
-          <button class="preset-swatch" style="background:#fff" data-color="#ffffff" aria-label="White"></button>
+          <div class="channel-row">
+            <span class="channel-label" style="color:#44bb44;">Green</span>
+            <input type="range" class="channel-slider slider-green" id="slider-g" min="0" max="255" value="37">
+            <input type="number" class="channel-input" id="input-g" value="37" min="0" max="255">
+          </div>
+          <div class="channel-row">
+            <span class="channel-label" style="color:#4488ff;">Blue</span>
+            <input type="range" class="channel-slider slider-blue" id="slider-b" min="0" max="255" value="214">
+            <input type="number" class="channel-input" id="input-b" value="214" min="0" max="255">
+          </div>
         </div>
       </section>
 
       <section class="card">
         <h2>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Formats
+          Results
         </h2>
-        <div class="format-list" id="format-list">
-          <div class="format-row" data-copy="HEX">
-            <span class="format-label">HEX</span>
-            <span class="format-value" id="val-hex">#6325d6</span>
+        <div class="result-group">
+          <div class="result-row" data-copy="hex">
+            <span class="label">HEX</span>
+            <span class="value" id="val-hex">#6325d6</span>
           </div>
-          <div class="format-row" data-copy="RGB">
-            <span class="format-label">RGB</span>
-            <span class="format-value" id="val-rgb">rgb(99, 37, 214)</span>
-          </div>
-          <div class="format-row" data-copy="RGBA">
-            <span class="format-label">RGBA</span>
-            <span class="format-value" id="val-rgba">rgba(99, 37, 214, 1)</span>
-          </div>
-          <div class="format-row" data-copy="HSL">
-            <span class="format-label">HSL</span>
-            <span class="format-value" id="val-hsl">hsl(261, 71%, 49%)</span>
-          </div>
-          <div class="format-row" data-copy="HSLA">
-            <span class="format-label">HSLA</span>
-            <span class="format-value" id="val-hsla">hsla(261, 71%, 49%, 1)</span>
-          </div>
-          <div class="format-row" data-copy="OKLCH">
-            <span class="format-label">OKLCH</span>
-            <span class="format-value" id="val-oklch">oklch(0.55 0.24 265)</span>
-          </div>
-          <div class="format-row" data-copy="Name">
-            <span class="format-label">Name</span>
-            <span class="format-value" id="val-name">—</span>
+          <div class="result-row" data-copy="rgba">
+            <span class="label">RGBA</span>
+            <span class="value" id="val-rgba">rgba(99, 37, 214, 1)</span>
           </div>
         </div>
-        <div style="margin-top:14px;color:var(--text-muted);font-size:0.75rem;">Click any format row to copy.</div>
+        <div style="margin-top:14px;color:var(--text-muted);font-size:0.75rem;">Click any value to copy.</div>
       </section>
     </div>
 
@@ -221,24 +191,24 @@
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
         <button class="faq-q">
-          What formats are supported?
+          How do I convert RGB to HEX?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">HEX (<code>#ff6600</code> or <code>#f60</code>), RGB (<code>rgb(255,102,0)</code>), RGBA (<code>rgba(255,102,0,0.5)</code>), HSL (<code>hsl(24,100%,50%)</code>), HSLA, OKLCH (<code>oklch(0.62 0.22 45)</code>), and named CSS colors (<code>red</code>, <code>coral</code>, etc.).</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Use the sliders or type numbers (0–255) in the Red, Green, and Blue fields. The hex code updates automatically. Click the HEX result to copy it to your clipboard.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">
-          What is OKLCH?
+          What is the hex color format?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">OKLCH is a perceptually uniform color space. Unlike RGB or HSL, a change in OKLCH values produces a visually uniform change in color. It consists of lightness (L), chroma (C), and hue (H). This site uses OKLCH for its theme.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Hex colors use a <code>#</code> prefix followed by 6 hexadecimal digits: the first two are Red, the middle two are Green, and the last two are Blue. For example, <code>#ff6600</code> is orange.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q">
-          Why does "Name" show a dash for some colors?
+          What's the range of each RGB channel?
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
-        <div class="faq-a"><div class="faq-a-inner">Named CSS colors are limited to 148 standard names. If your color doesn't have an exact match in the named palette, "—" is shown. The nearest named color is not approximated — only exact matches are reported.</div></div>
+        <div class="faq-a"><div class="faq-a-inner">Each RGB channel (Red, Green, Blue) ranges from 0 to 255. 0 means no contribution from that channel, 255 is full intensity. Together they can represent over 16 million colors.</div></div>
       </div>
     </section>
   </main>
@@ -259,254 +229,58 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    var colorInput = document.getElementById('color-input');
-    var btnConvert = document.getElementById('btn-convert');
-    var colorPicker = document.getElementById('color-picker');
+    var sliders = { r: document.getElementById('slider-r'), g: document.getElementById('slider-g'), b: document.getElementById('slider-b') };
+    var inputs = { r: document.getElementById('input-r'), g: document.getElementById('input-g'), b: document.getElementById('input-b') };
     var preview = document.getElementById('preview');
-    var previewText = document.getElementById('preview-text');
-    var formatEls = {};
     var toast = document.getElementById('toast');
 
-    var formatIds = ['hex','rgb','rgba','hsl','hsla','oklch','name'];
-    formatIds.forEach(function(id) { formatEls[id] = document.getElementById('val-' + id); });
+    function rgbToHex(r, g, b) {
+      return '#' + [r, g, b].map(function(c) { return ('0' + Math.round(c).toString(16)).slice(-2); }).join('');
+    }
 
-    var namedColors = {
-      aliceblue:'#f0f8ff',antiquewhite:'#faebd7',aqua:'#00ffff',aquamarine:'#7fffd4',azure:'#f0ffff',
-      beige:'#f5f5dc',bisque:'#ffe4c4',black:'#000000',blanchedalmond:'#ffebcd',blue:'#0000ff',
-      blueviolet:'#8a2be2',brown:'#a52a2a',burlywood:'#deb887',cadetblue:'#5f9ea0',chartreuse:'#7fff00',
-      chocolate:'#d2691e',coral:'#ff7f50',cornflowerblue:'#6495ed',cornsilk:'#fff8dc',crimson:'#dc143c',
-      cyan:'#00ffff',darkblue:'#00008b',darkcyan:'#008b8b',darkgoldenrod:'#b8860b',darkgray:'#a9a9a9',
-      darkgreen:'#006400',darkkhaki:'#bdb76b',darkmagenta:'#8b008b',darkolivegreen:'#556b2f',
-      darkorange:'#ff8c00',darkorchid:'#9932cc',darkred:'#8b0000',darksalmon:'#e9967a',
-      darkseagreen:'#8fbc8f',darkslateblue:'#483d8b',darkslategray:'#2f4f4f',darkturquoise:'#00ced1',
-      darkviolet:'#9400d3',deeppink:'#ff1493',deepskyblue:'#00bfff',dimgray:'#696969',dodgerblue:'#1e90ff',
-      firebrick:'#b22222',floralwhite:'#fffaf0',forestgreen:'#228b22',fuchsia:'#ff00ff',
-      gainsboro:'#dcdcdc',ghostwhite:'#f8f8ff',gold:'#ffd700',goldenrod:'#daa520',gray:'#808080',
-      green:'#008000',greenyellow:'#adff2f',honeydew:'#f0fff0',hotpink:'#ff69b4',
-      indianred:'#cd5c5c',indigo:'#4b0082',ivory:'#fffff0',khaki:'#f0e68c',lavender:'#e6e6fa',
-      lavenderblush:'#fff0f5',lawngreen:'#7cfc00',lemonchiffon:'#fffacd',lightblue:'#add8e6',
-      lightcoral:'#f08080',lightcyan:'#e0ffff',lightgoldenrodyellow:'#fafad2',lightgray:'#d3d3d3',
-      lightgreen:'#90ee90',lightpink:'#ffb6c1',lightsalmon:'#ffa07a',lightseagreen:'#20b2aa',
-      lightskyblue:'#87cefa',lightslategray:'#778899',lightsteelblue:'#b0c4de',lightyellow:'#ffffe0',
-      lime:'#00ff00',limegreen:'#32cd32',linen:'#faf0e6',magenta:'#ff00ff',maroon:'#800000',
-      mediumaquamarine:'#66cdaa',mediumblue:'#0000cd',mediumorchid:'#ba55d3',mediumpurple:'#9370db',
-      mediumseagreen:'#3cb371',mediumslateblue:'#7b68ee',mediumspringgreen:'#00fa9a',
-      mediumturquoise:'#48d1cc',mediumvioletred:'#c71585',midnightblue:'#191970',mintcream:'#f5fffa',
-      mistyrose:'#ffe4e1',moccasin:'#ffe4b5',navajowhite:'#ffdead',navy:'#000080',oldlace:'#fdf5e6',
-      olive:'#808000',olivedrab:'#6b8e23',orange:'#ffa500',orangered:'#ff4500',orchid:'#da70d6',
-      palegoldenrod:'#eee8aa',palegreen:'#98fb98',paleturquoise:'#afeeee',palevioletred:'#db7093',
-      papayawhip:'#ffefd5',peachpuff:'#ffdab9',peru:'#cd853f',pink:'#ffc0cb',plum:'#dda0dd',
-      powderblue:'#b0e0e6',purple:'#800080',rebeccapurple:'#663399',red:'#ff0000',rosybrown:'#bc8f8f',
-      royalblue:'#4169e1',saddlebrown:'#8b4513',salmon:'#fa8072',sandybrown:'#f4a460',seagreen:'#2e8b57',
-      seashell:'#fff5ee',sienna:'#a0522d',silver:'#c0c0c0',skyblue:'#87ceeb',slateblue:'#6a5acd',
-      slategray:'#708090',snow:'#fffafa',springgreen:'#00ff7f',steelblue:'#4682b4',
-      tan:'#d2b48c',teal:'#008080',thistle:'#d8bfd8',tomato:'#ff6347',turquoise:'#40e0d0',
-      violet:'#ee82ee',wheat:'#f5deb3',white:'#ffffff',whitesmoke:'#f5f5f5',yellow:'#ffff00',
-      yellowgreen:'#9acd32'
-    };
-    var nameByHex = {};
-    for (var name in namedColors) nameByHex[namedColors[name]] = name;
-
-    function parseColor(str) {
-      str = str.trim();
-      if (!str) return null;
-      var s = str.toLowerCase();
-      if (namedColors[s]) return namedColors[s];
-      if (s.startsWith('oklch')) {
-        var m = s.match(/oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+([\d.]+)\s*.*\)/i);
-        if (m) {
-          var lRaw = m[1], c = parseFloat(m[2]), h = parseFloat(m[3]);
-          var lVal = parseFloat(lRaw);
-          if (lRaw.indexOf('%') > -1 || lVal > 1) lVal = lVal / 100;
-          return oklchToHex(lVal, c, h);
+    function update(source) {
+      var r, g, b;
+      if (source === 'slider' || !source) {
+        r = parseInt(sliders.r.value, 10);
+        g = parseInt(sliders.g.value, 10);
+        b = parseInt(sliders.b.value, 10);
+        if (source === 'slider') {
+          inputs.r.value = r;
+          inputs.g.value = g;
+          inputs.b.value = b;
         }
-        return null;
+      } else {
+        r = parseInt(inputs.r.value, 10);
+        g = parseInt(inputs.g.value, 10);
+        b = parseInt(inputs.b.value, 10);
+        if (isNaN(r)) r = 0; if (isNaN(g)) g = 0; if (isNaN(b)) b = 0;
+        r = Math.max(0, Math.min(255, r));
+        g = Math.max(0, Math.min(255, g));
+        b = Math.max(0, Math.min(255, b));
+        inputs.r.value = r;
+        inputs.g.value = g;
+        inputs.b.value = b;
+        sliders.r.value = r;
+        sliders.g.value = g;
+        sliders.b.value = b;
       }
-      var div = document.createElement('div');
-      div.style.color = str;
-      div.style.display = 'none';
-      document.body.appendChild(div);
-      var cs = getComputedStyle(div).color;
-      document.body.removeChild(div);
-      if (!cs || cs === 'rgba(0, 0, 0, 0)') return null;
-      return rgbToHex(parseRgb(cs));
+      var hex = rgbToHex(r, g, b);
+      preview.style.background = hex;
+      document.getElementById('val-hex').textContent = hex;
+      document.getElementById('val-rgba').textContent = 'rgba('+r+', '+g+', '+b+', 1)';
     }
 
-    function parseRgb(str) {
-      var m = str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-      if (m) return { r: +m[1], g: +m[2], b: +m[3], a: m[4] !== undefined ? +m[4] : 1 };
-      return null;
-    }
+    sliders.r.addEventListener('input', function() { update('slider'); });
+    sliders.g.addEventListener('input', function() { update('slider'); });
+    sliders.b.addEventListener('input', function() { update('slider'); });
+    inputs.r.addEventListener('input', function() { update('input'); });
+    inputs.g.addEventListener('input', function() { update('input'); });
+    inputs.b.addEventListener('input', function() { update('input'); });
 
-    function rgbToHex(rgb) {
-      return '#' + [rgb.r, rgb.g, rgb.b].map(function(c) { return ('0' + c.toString(16)).slice(-2); }).join('');
-    }
-
-    function hexToRgb(hex) {
-      var h = hex.replace('#', '');
-      if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
-      return { r: parseInt(h.substr(0,2),16), g: parseInt(h.substr(2,2),16), b: parseInt(h.substr(4,2),16) };
-    }
-
-    function rgbToHsl(r,g,b) {
-      r/=255; g/=255; b/=255;
-      var max=Math.max(r,g,b), min=Math.min(r,g,b), h,s,l=(max+min)/2;
-      if (max===min) h=s=0;
-      else {
-        var d=max-min; s=l>0.5 ? d/(2-max-min) : d/(max+min);
-        switch(max) {
-          case r: h=((g-b)/d+(g<b?6:0))/6; break;
-          case g: h=((b-r)/d+2)/6; break;
-          case b: h=((r-g)/d+4)/6; break;
-        }
-      }
-      return { h: Math.round(h*360), s: Math.round(s*100), l: Math.round(l*100) };
-    }
-
-    function srgbToLinear(c) {
-      c /= 255;
-      return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
-    }
-    function linearToSrgb(c) {
-      return Math.round((c <= 0.0031308 ? 12.92 * c : 1.055 * Math.pow(c, 1/2.4) - 0.055) * 255);
-    }
-    var M1 = [[0.8189330101, 0.3618667424, -0.1288597137],
-              [0.0329845436, 0.9293118715, 0.0361456387],
-              [0.0482003018, 0.2643662691, 0.6338517070]];
-    var M2 = [[0.2104542553, 0.7936177850, -0.0040720468],
-              [1.9779984951, -2.4285922050, 0.4505937099],
-              [0.0259040371, 0.7827717662, -0.8086757660]];
-    var M1inv = [[2.3425800, -0.7918420, -0.0771417],
-                 [-0.0829130, 1.1923730, -0.2628310],
-                 [-0.0644600, -0.2547790, 0.5227750]];
-    function matMul(m,v) { return [m[0][0]*v[0]+m[0][1]*v[1]+m[0][2]*v[2], m[1][0]*v[0]+m[1][1]*v[1]+m[1][2]*v[2], m[2][0]*v[0]+m[2][1]*v[1]+m[2][2]*v[2]]; }
-
-    function rgbToOklch(r,g,b) {
-      var lr=srgbToLinear(r), lg=srgbToLinear(g), lb=srgbToLinear(b);
-      var lms=matMul(M1,[lr,lg,lb]);
-      lms = lms.map(function(v) { return Math.cbrt(v); });
-      var lab=matMul(M2,lms);
-      var L=lab[0], a=lab[1], b_=lab[2];
-      var C=Math.sqrt(a*a+b_*b_);
-      var H=Math.atan2(b_,a)*180/Math.PI;
-      if (H<0) H+=360;
-      return { l: Math.round(L*100)/100, c: Math.round(C*100)/100, h: Math.round(H) };
-    }
-
-    function oklchToRgb(L,C,H) {
-      var hRad=H*Math.PI/180;
-      var a=C*Math.cos(hRad), b_=C*Math.sin(hRad);
-      var lab=[L,a,b_];
-      var lms=matMul(M2inv||(function(){
-        var m2i=[[1,0.3963377774,0.2158037573],[1,-0.1055613458,-0.0638541728],[1,-0.0894841775,-1.2914855480]];
-        M2inv=m2i; return m2i;
-      })(),lab);
-      lms=lms.map(function(v){return v*v*v;});
-      var rgb=matMul(M1inv,lms);
-      return { r: linearToSrgb(rgb[0]), g: linearToSrgb(rgb[1]), b: linearToSrgb(rgb[2]) };
-    }
-    var M2inv = null;
-
-    function oklchToHex(L,C,H) {
-      var rgb = oklchToRgb(L,C,H);
-      return rgbToHex(rgb);
-    }
-
-    function rgbToCssHsl(r,g,b) {
-      var h=rgbToHsl(r,g,b);
-      return 'hsl('+h.h+','+h.s+'%,'+h.l+'%)';
-    }
-
-    function convert(colorStr) {
-      var inputLower = colorStr.trim().toLowerCase();
-      var isOklchInput = inputLower.startsWith('oklch');
-      var oklchInput = null;
-      if (isOklchInput) {
-        var m = inputLower.match(/oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+([\d.]+)/);
-        if (m) {
-          var lRaw = m[1], cRaw = m[2], hRaw = m[3];
-          var lVal = parseFloat(lRaw);
-          if (lRaw.indexOf('%') > -1 || lVal > 1) lVal = lVal / 100;
-          oklchInput = { l: lVal, c: parseFloat(cRaw), h: parseFloat(hRaw) };
-        }
-      }
-      var hex = parseColor(colorStr);
-      if (!hex) return null;
-      var rgb = hexToRgb(hex);
-      var hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-      var oklch = oklchInput || rgbToOklch(rgb.r, rgb.g, rgb.b);
-      var hexLower = hex.toLowerCase();
-      var namedName = null;
-      for (var n in namedColors) {
-        if (namedColors[n].toLowerCase() === hexLower) { namedName = n; break; }
-      }
-      return { hex: hex, rgb: rgb, hsl: hsl, oklch: oklch, name: namedName };
-    }
-
-    function updateUI(result) {
-      if (!result) {
-        formatIds.forEach(function(id) { formatEls[id].textContent = '—'; });
-        return;
-      }
-      var rgb=result.rgb, hsl=result.hsl, o=result.oklch;
-      formatEls.hex.textContent = result.hex;
-      formatEls.rgb.textContent = 'rgb('+rgb.r+','+rgb.g+','+rgb.b+')';
-      formatEls.rgba.textContent = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+',1)';
-      formatEls.hsl.textContent = 'hsl('+hsl.h+','+hsl.s+'%,'+hsl.l+'%)';
-      formatEls.hsla.textContent = 'hsla('+hsl.h+','+hsl.s+'%,'+hsl.l+'%,1)';
-      var lStr = Math.round(o.l*100)/100, cStr = Math.round(o.c*100)/100, hStr = Math.round(o.h);
-      formatEls.oklch.textContent = 'oklch('+lStr+' '+cStr+' '+hStr+')';
-      formatEls.name.textContent = result.name ? result.name.charAt(0).toUpperCase()+result.name.slice(1) : '—';
-
-      preview.style.background = result.hex;
-      colorPicker.value = result.hex;
-      var brightness = 0.299*rgb.r + 0.587*rgb.g + 0.114*rgb.b;
-      previewText.style.color = brightness > 140 ? '#000' : '#fff';
-      previewText.textContent = result.hex.toUpperCase();
-    }
-
-    function handleInput(val) {
-      if (!val) {
-        formatIds.forEach(function(id) { formatEls[id].textContent = '—'; });
-        preview.style.background = 'var(--bg-card)';
-        previewText.textContent = 'Enter a color';
-        previewText.style.color = 'var(--text-muted)';
-        return;
-      }
-      var result = convert(val);
-      if (result) updateUI(result);
-    }
-
-    btnConvert.addEventListener('click', function() {
-      handleInput(colorInput.value);
-    });
-
-    colorInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') handleInput(colorInput.value);
-    });
-
-    colorInput.addEventListener('input', function() {
-      handleInput(this.value.trim());
-    });
-
-    colorPicker.addEventListener('input', function() {
-      var hex = this.value;
-      colorInput.value = hex;
-      handleInput(hex);
-    });
-
-    document.querySelectorAll('.preset-swatch').forEach(function(swatch) {
-      swatch.addEventListener('click', function() {
-        var hex = this.getAttribute('data-color');
-        colorInput.value = hex;
-        handleInput(hex);
-      });
-    });
-
-    document.querySelectorAll('.format-row').forEach(function(row) {
+    document.querySelectorAll('.result-row').forEach(function(row) {
       row.addEventListener('click', function() {
-        var val = this.querySelector('.format-value');
-        if (!val || val.textContent === '—') return;
+        var val = this.querySelector('.value');
+        if (!val) return;
         navigator.clipboard.writeText(val.textContent).then(function() {
           showToast('Copied ' + val.textContent);
         }).catch(function() {});
