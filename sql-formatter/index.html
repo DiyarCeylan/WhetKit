@@ -256,81 +256,107 @@ LIMIT 10</textarea>
       var uppercase = document.getElementById('uppercase').checked;
       var indentSize = parseInt(document.getElementById('indent-size').value);
 
-      var lines = sql.split('\n');
-      var cleaned = [];
-      lines.forEach(function(l) {
-        var trimmed = l.trim();
-        if (trimmed) cleaned.push(trimmed);
-      });
-      var singleLine = cleaned.join(' ');
+      var KEYWORDS = { SELECT:1, INSERT:1, UPDATE:1, DELETE:1, CREATE:1, ALTER:1, DROP:1, TABLE:1, INDEX:1, VIEW:1, FROM:1, WHERE:1, 'AND':1, 'OR':1, 'GROUP':1, 'ORDER':1, 'BY':1, HAVING:1, LIMIT:1, OFFSET:1, SET:1, VALUES:1, INTO:1, JOIN:1, 'LEFT':1, 'RIGHT':1, 'INNER':1, 'OUTER':1, 'FULL':1, 'CROSS':1, 'NATURAL':1, 'ON':1, 'AS':1, 'NOT':1, 'NULL':1, 'IN':1, 'IS':1, 'LIKE':1, 'BETWEEN':1, 'EXISTS':1, 'ALL':1, 'ANY':1, 'UNION':1, 'EXCEPT':1, 'INTERSECT':1, 'ASC':1, 'DESC':1, 'DISTINCT':1, 'CASE':1, 'WHEN':1, 'THEN':1, 'ELSE':1, 'END':1, 'WITH':1, 'RECURSIVE':1, 'PRIMARY':1, 'KEY':1, 'FOREIGN':1, 'REFERENCES':1, 'CASCADE':1, 'DEFAULT':1, 'CHECK':1, 'UNIQUE':1, 'IF':1, 'REPLACE':1, 'MERGE':1, 'TRUE':1, 'FALSE':1, 'TOP':1, 'USING':1, 'RETURNING':1 };
+      var JOIN_WORDS = { 'JOIN':1, 'LEFT':1, 'RIGHT':1, 'INNER':1, 'OUTER':1, 'FULL':1, 'CROSS':1, 'NATURAL':1 };
 
-      var clauses = ['SELECT\\s+', 'INSERT\\s+(?:INTO\\s+)?', 'UPDATE\\s+', 'DELETE\\s+(?:FROM\\s+)?', 'CREATE\\s+(?:TABLE|VIEW|INDEX)\\s+', 'ALTER\\s+TABLE\\s+', 'DROP\\s+(?:TABLE|VIEW|INDEX)\\s+'];
-      var subClauses = ['FROM\\s+', 'WHERE\\s+', 'GROUP\\s+BY\\s+', 'ORDER\\s+BY\\s+', 'HAVING\\s+', 'LIMIT\\s+', 'OFFSET\\s+', 'SET\\s+', 'VALUES\\s*\\('];
-      var joinClauses = ['(?:LEFT|RIGHT|INNER|OUTER|FULL|CROSS)\\s+JOIN\\s+', 'JOIN\\s+', 'ON\\s+'];
-      var all = clauses.concat(subClauses).concat(joinClauses);
-      var pattern = '(' + all.join('|') + ')';
-      var re = new RegExp(pattern, 'gi');
-
-      var parts = [];
-      var last = 0;
-      var match;
-      while ((match = re.exec(singleLine)) !== null) {
-        if (match.index > last) parts.push({ text: singleLine.substring(last, match.index), isKeyword: false });
-        parts.push({ text: match[0], isKeyword: true, keyword: match[0] });
-        last = re.lastIndex;
+      var tokens = [];
+      for (var i = 0; i < sql.length;) {
+        if (sql[i] === ' ' || sql[i] === '\t' || sql[i] === '\r' || sql[i] === '\n') { i++; continue; }
+        if (sql[i] === "'" || sql[i] === '"') {
+          var q = sql[i], s = i; i++;
+          while (i < sql.length && sql[i] !== q) { if (sql[i] === '\\') i++; i++; }
+          if (i < sql.length) i++;
+          tokens.push({ t: sql.substring(s, i), k: 0 }); continue;
+        }
+        if (sql[i] === '-' && sql[i+1] === '-') { var s = i; while (i < sql.length && sql[i] !== '\n') i++; tokens.push({ t: sql.substring(s, i), k: 2 }); continue; }
+        if (/[a-zA-Z_]/.test(sql[i])) { var s = i; while (i < sql.length && /[a-zA-Z0-9_]/.test(sql[i])) i++; var w = sql.substring(s, i); tokens.push({ t: w, k: KEYWORDS[w.toUpperCase()] ? 1 : 0 }); continue; }
+        if (/[0-9]/.test(sql[i])) { var s = i; while (i < sql.length && /[0-9.]/.test(sql[i])) i++; tokens.push({ t: sql.substring(s, i), k: 0 }); continue; }
+        tokens.push({ t: sql[i], k: 0 }); i++;
       }
-      if (last < singleLine.length) parts.push({ text: singleLine.substring(last), isKeyword: false });
 
-      var result = [];
-      var indent = 0;
-      var inSelect = false;
-      var inValues = false;
+      function uc(t) { return KEYWORDS[t.toUpperCase()] && uppercase ? t.toUpperCase() : t; }
+      function needSpace(prev, curr) {
+        if (!prev) return false;
+        if (curr === ',' || curr === ')' || curr === '.') return false;
+        if (prev === '(' || prev === '.') return false;
+        if (curr === '(' && FUNCTIONS.indexOf(prev.toUpperCase()) > -1) return false;
+        return true;
+      }
 
-      parts.forEach(function(p) {
-        if (!p.isKeyword) {
-          var remaining = p.text.trim();
-          if (remaining) {
-            var items = remaining.split(',').map(function(s) { return s.trim(); });
-            items.forEach(function(item, idx) {
-              if (item) {
-                if (idx > 0) result.push({ indent: indent + 1, text: item + (idx < items.length - 1 ? ',' : '') });
-                else result.push({ indent: indent + 1, text: item + (idx < items.length - 1 ? ',' : '') });
-              }
-            });
+      var out = [];
+      var indent = 0, parenDepth = 0, inLine = [];
+      function emitLine(nl) {
+        if (inLine.length > 0) {
+          var text = '';
+          for (var i = 0; i < inLine.length; i++) {
+            if (needSpace(i > 0 ? inLine[i-1] : null, inLine[i])) text += ' ';
+            text += inLine[i];
           }
-          return;
+          var lvl = parenDepth > 0 ? indent + parenDepth : indent;
+          out.push({ indent: Math.max(0, lvl), text: text });
+          inLine = [];
+        }
+        if (nl !== undefined) indent = nl;
+      }
+
+      for (var pos = 0; pos < tokens.length; pos++) {
+        var tok = tokens[pos];
+        if (tok.k === 2) { emitLine(); inLine.push(tok.t); emitLine(); continue; }
+        if (tok.t === '(') { parenDepth++; inLine.push('('); continue; }
+        if (tok.t === ')') { parenDepth = Math.max(0, parenDepth - 1); inLine.push(')'); continue; }
+        if (tok.t === ',') { inLine.push(','); if (parenDepth === 0) { emitLine(); indent = Math.max(1, indent); } continue; }
+
+        if (tok.k === 1) {
+          var up = tok.t.toUpperCase();
+          var nxt = pos + 1 < tokens.length ? tokens[pos+1].t.toUpperCase() : '';
+          if (up === 'SELECT' && parenDepth === 0) { emitLine(0); inLine.push('SELECT'); continue; }
+          if (up === 'INSERT' && parenDepth === 0) { emitLine(0); inLine.push('INSERT'); continue; }
+          if (up === 'UPDATE' && parenDepth === 0) { emitLine(0); inLine.push('UPDATE'); continue; }
+          if (up === 'DELETE' && parenDepth === 0) { emitLine(0); inLine.push('DELETE'); continue; }
+          if (up === 'CREATE' && parenDepth === 0) { emitLine(0); inLine.push('CREATE'); continue; }
+          if (up === 'ALTER' && parenDepth === 0) { emitLine(0); inLine.push('ALTER'); continue; }
+          if (up === 'DROP' && parenDepth === 0) { emitLine(0); inLine.push('DROP'); continue; }
+          if (up === 'FROM' && parenDepth === 0) { emitLine(0); inLine.push('FROM'); continue; }
+          if (up === 'WHERE' && parenDepth === 0) { emitLine(0); inLine.push('WHERE'); continue; }
+          if (up === 'HAVING' && parenDepth === 0) { emitLine(0); inLine.push('HAVING'); continue; }
+          if (up === 'LIMIT' && parenDepth === 0) { emitLine(0); inLine.push('LIMIT'); continue; }
+          if (up === 'OFFSET' && parenDepth === 0) { emitLine(0); inLine.push('OFFSET'); continue; }
+          if (up === 'SET' && parenDepth === 0) { emitLine(0); inLine.push('SET'); continue; }
+          if (up === 'VALUES' && parenDepth === 0) { emitLine(1); inLine.push('VALUES'); continue; }
+          if (up === 'ORDER' && nxt === 'BY' && parenDepth === 0) { emitLine(0); inLine.push('ORDER'); pos++; inLine.push('BY'); continue; }
+          if (up === 'GROUP' && nxt === 'BY' && parenDepth === 0) { emitLine(0); inLine.push('GROUP'); pos++; inLine.push('BY'); continue; }
+          if ((up === 'AND' || up === 'OR') && parenDepth === 0) { emitLine(1); inLine.push(up); continue; }
+          if (up === 'ON' && parenDepth === 0) {
+            if (inLine.length > 0) { inLine.push('ON'); continue; }
+            emitLine(0); inLine.push('ON'); continue;
+          }
+          if (JOIN_WORDS[up] && parenDepth === 0) {
+            if (up === 'JOIN') { emitLine(0); inLine.push('JOIN'); continue; }
+            var nn = pos + 1 < tokens.length ? tokens[pos+1].t.toUpperCase() : '';
+            if (nn === 'JOIN') { emitLine(0); inLine.push(up); pos++; inLine.push('JOIN'); continue; }
+          }
+          inLine.push(uc(tok.t));
+          continue;
         }
 
-        var kw = p.keyword.trim().toUpperCase();
-        var original = p.keyword.trim();
-
-        if (clauses.some(function(c) { return kw.match(new RegExp('^' + c.trim().toUpperCase().replace(/\\s\+/g,'\\s+'))); })) {
-          indent = 0;
-          inSelect = kw === 'SELECT';
-          inValues = false;
-          result.push({ indent: 0, text: (uppercase ? kw : original) });
-        } else if (joinClauses.some(function(c) { return kw.match(new RegExp('^' + c.trim().toUpperCase().replace(/\\s\+/g,'\\s+'))); })) {
-          result.push({ indent: 0, text: (uppercase ? kw : original) });
-        } else if (kw === 'ON') {
-          result.push({ indent: 1, text: (uppercase ? kw : original) });
-        } else if (subClauses.some(function(c) { return kw.match(new RegExp('^' + c.trim().toUpperCase().replace(/\\s\+/g,'\\s+'))); })) {
-          indent = 1;
-          if (kw === 'VALUES(' || kw.startsWith('VALUES')) { inValues = true; indent = 1; }
-          result.push({ indent: 0, text: (uppercase ? kw : original) });
-        } else {
-          result.push({ indent: indent, text: (uppercase ? kw : original) });
+        if (tok.t === '*' || tok.t === '=' || tok.t === '>' || tok.t === '<' || tok.t === '!' || tok.t === '+' || tok.t === '-' || tok.t === '/' || tok.t === '%') {
+          inLine.push(tok.t);
+          continue;
         }
-      });
 
-      var out = '';
-      result.forEach(function(r) {
-        var spaces = '';
-        for (var i = 0; i < r.indent * indentSize; i++) spaces += ' ';
-        if (out) out += '\n';
-        out += spaces + r.text;
-      });
+        inLine.push(tok.t);
+      }
 
-      return out;
+      emitLine(0);
+
+      var result = '';
+      for (var r = 0; r < out.length; r++) {
+        var sp = '';
+        for (var s = 0; s < out[r].indent * indentSize; s++) sp += ' ';
+        if (r > 0) result += '\n';
+        result += sp + out[r].text;
+      }
+      return result;
     }
 
     function formatAndDisplay() {
