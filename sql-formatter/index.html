@@ -84,7 +84,7 @@
     .editor-body textarea:focus { box-shadow: inset 0 0 0 2px var(--brand); }
 
     .line-numbers { padding: 14px 0 14px 14px; text-align: right; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.6; user-select: none; border-right: 1px solid var(--border); min-width: 40px; background: var(--bg-secondary); white-space: pre; }
-    .code-output { padding: 14px; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.6; white-space: pre-wrap; word-break: break-word; overflow: auto; flex: 1; }
+    .code-output { padding: 14px; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.6; white-space: pre; overflow: auto; flex: 1; }
     .kw { color: oklch(0.5 0.2 265); font-weight: 600; }
     .fn { color: oklch(0.5 0.18 200); }
     .str { color: oklch(0.5 0.18 140); }
@@ -127,6 +127,7 @@
 
     <div class="toolbar">
       <button class="btn" id="format-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg> Format</button>
+      <button class="btn btn-secondary" id="clear-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Clear</button>
     </div>
 
     <div class="split">
@@ -368,6 +369,14 @@
     }
 
     document.getElementById('format-btn').addEventListener('click', formatAndDisplay);
+
+    document.getElementById('clear-btn').addEventListener('click', function() {
+      document.getElementById('sql-input').value = '';
+      document.getElementById('input-count').textContent = '0 chars';
+      document.getElementById('sql-output').innerHTML = '<span class="cm">-- Enter SQL above and click Format</span>';
+      document.getElementById('line-numbers').textContent = '1';
+      document.getElementById('output-count').textContent = '0 chars';
+    });
 
     document.getElementById('copy-btn').addEventListener('click', function() {
       var text = document.getElementById('sql-output').textContent;
