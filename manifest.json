@@ -1,6 +1,6 @@
-{
-  "name": "DevTools",
-  "short_name": "DevTools",
+﻿{
+  "name": "WhetKit",
+  "short_name": "WhetKit",
   "description": "Free online developer tools — encode, format, convert, validate, and more. 100% client-side.",
   "start_url": "/dev-tools/",
   "scope": "/dev-tools/",
