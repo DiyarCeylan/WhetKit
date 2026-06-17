@@ -6,7 +6,19 @@
   <title>HTML Entity Encoder / Decoder — DevTools</title>
   <meta name="description" content="Free online HTML entity encoder and decoder. Encode or decode HTML special characters instantly. 100% client-side.">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://diyarceylan.github.io/dev-tools/html-entity-encoder-decoder/">
+  <meta property="og:title" content="HTML Entity Encoder / Decoder — DevTools">
+  <meta property="og:description" content="Encode or decode HTML special characters like &amp;lt; &amp;gt; &amp;amp;.">
+  <meta property="og:url" content="https://diyarceylan.github.io/dev-tools/html-entity-encoder-decoder/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HTML Entity Encoder / Decoder — DevTools">
+  <meta name="twitter:description" content="Encode or decode HTML special characters like &amp;lt; &amp;gt; &amp;amp;.">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#6325d6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <script data-goatcounter="https://dev-tools.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3392336799571098" crossorigin="anonymous"></script>
   <script type="application/ld+json">
@@ -21,6 +33,9 @@
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "description": "Free online HTML entity encoder and decoder. Encode or decode HTML special characters. 100% client-side."
   }
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What are HTML entities?","acceptedAnswer":{"@type":"Answer","text":"HTML entities are special codes that represent reserved characters. For example, &lt; represents &lt;, &amp; represents &amp;, and &quot; represents &quot;."}},{"@type":"Question","name":"When should I encode HTML?","acceptedAnswer":{"@type":"Answer","text":"Always encode user-generated content before inserting it into HTML to prevent XSS attacks. Encode data in HTML attributes, text nodes, and inline scripts."}},{"@type":"Question","name":"What is the difference between named and numeric entities?","acceptedAnswer":{"@type":"Answer","text":"Named entities like &amp; are easier to read. Numeric entities like &#38; or &#x26; work for any Unicode character. Both render the same."}}],"name":"HTML Entity Encoder / Decoder FAQ"}
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,22 +113,36 @@
     .section-divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 48px 0 32px; color: var(--text-muted); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; }
     .section-divider::before, .section-divider::after { content: ''; flex: 1; max-width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
 
+
+    footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
+    footer .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 8px; flex-wrap: wrap; }
+    footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; font-weight: 500; }
+    footer a:hover { color: var(--brand); }
+
+    .tool-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; text-align: center; backdrop-filter: blur(12px); }
+    .tool-cta p { margin-bottom: 14px; font-size: 1rem; }
+    .tool-cta .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--brand-gradient); color: var(--text-on-brand); border: none; border-radius: var(--radius-sm); font-family: var(--font); font-size: 0.9rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.22,1,0.36,1); }
+    .tool-cta .btn:hover { box-shadow: 0 4px 16px oklch(0.55 0.24 265 / 0.35); transform: translateY(-1px); }
+
     .faq { max-width: 900px; margin: 0 auto; }
     .faq h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; text-align: center; }
     .faq-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; background: var(--bg-card); backdrop-filter: blur(8px); transition: border-color 0.2s; }
     .faq-item:hover { border-color: var(--border-hover); }
-    .faq-q { width: 100%; padding: 16px 20px; background: none; border: none; font-family: var(--font); font-size: 0.95rem; font-weight: 600; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-align: left; }
+    .faq-q { width: 100%; padding: 16px 20px; background: none; border: none; font-family: var(--font); font-size: 0.95rem; font-weight: 600; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-align: left; gap: 12px; }
     .faq-q:hover { background: var(--bg-secondary); }
     .faq-q svg { transition: transform 0.25s ease; flex-shrink: 0; }
     .faq-item.open .faq-q svg { transform: rotate(180deg); }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
     .faq-item.open .faq-a { max-height: 300px; }
     .faq-a-inner { padding: 0 20px 16px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
-
-    footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; color: var(--text-muted); font-size: 0.8rem; }
-    footer .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 8px; flex-wrap: wrap; }
-    footer a { color: var(--text-secondary); text-decoration: none; transition: color 0.2s; font-weight: 500; }
-    footer a:hover { color: var(--brand); }
+    .faq-a-inner code { font-family: var(--font-mono); font-size: 0.85em; background: var(--bg-secondary); padding: 1px 5px; border-radius: 4px; }
+    .related-wrap { max-width: 900px; margin: 0 auto; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .related-grid { grid-template-columns: 1fr; } }
+    .related-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-decoration: none; color: inherit; box-shadow: var(--shadow-sm); backdrop-filter: blur(12px); transition: all 0.3s; display: flex; flex-direction: column; gap: 8px; }
+    .related-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--brand); }
+    .related-card h3 { font-size: 0.95rem; font-weight: 700; }
+    .related-card .related-link { font-size: 0.8rem; font-weight: 600; color: var(--brand); }
 
     @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0s!important; transition-duration:0s!important; } }
@@ -129,8 +158,9 @@
       </a>
       <div class="header-actions">
         <a href="../index.html" class="nav-link">All Tools</a>
+        <a href="../blog/index.html" class="nav-link">Blog</a>
         <a href="../about/index.html" class="nav-link">About</a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
       </div>
@@ -170,43 +200,75 @@
         </h2>
         <div class="result-box" id="result"></div>
         <div class="action-row" id="action-row" style="display:none;">
-          <button class="btn btn-secondary" id="btn-copy">Copy</button>
+          <button class="btn btn-secondary" id="btn-copy" aria-label="Copy to clipboard">Copy</button>
         </div>
       </section>
     </div>
 
-    <div class="section-divider" aria-hidden="true">FAQ</div>
-
-    <section class="faq" aria-labelledby="faq-heading">
-      <h2 id="faq-heading">Frequently Asked Questions</h2>
-      <div class="faq-item">
-        <button class="faq-q">
-          What are HTML entities?
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">HTML entities are special codes that represent characters reserved in HTML. For example, <code>&lt;</code> renders as <code>&lt;</code> and <code>&amp;</code> renders as <code>&amp;</code>. They prevent browsers from interpreting these characters as HTML code.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">
-          When would I use this tool?
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">When you need to display HTML tags as text (e.g., in a blog post or documentation), escape user input for XSS prevention, or decode HTML entities from scraped web pages back to readable text.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">
-          What's the difference between &amp; and &amp;amp;?
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner"><code>&amp;</code> in HTML source displays as "&amp;". If you encode that to <code>&amp;amp;</code> and view it in a browser, it will display as "&amp;" — that's double-encoding. This tool handles both single and double encoding correctly.</div></div>
-      </div>
-    </section>
   </main>
 
-  <footer>
+    <div class="tool-cta">
+      <p>Learn more in our detailed guide.</p>
+      <a href="../blog/html-entity-guide.html" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        Read the Guide
+      </a>
+    </div>
+
+  
+    <div class="section-divider" aria-hidden="true">FAQ</div>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-0">
+          <span>What are HTML entities?</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a" id="faq-a-0" role="region">
+          <div class="faq-a-inner">HTML entities are special codes that represent reserved characters. For example, &lt; represents &lt;, &amp; represents &amp;, and &quot; represents &quot;.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-1">
+          <span>When should I encode HTML?</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a" id="faq-a-1" role="region">
+          <div class="faq-a-inner">Always encode user-generated content before inserting it into HTML to prevent XSS attacks. Encode data in HTML attributes, text nodes, and inline scripts.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-2">
+          <span>What is the difference between named and numeric entities?</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a" id="faq-a-2" role="region">
+          <div class="faq-a-inner">Named entities like &amp; are easier to read. Numeric entities like &#38; or &#x26; work for any Unicode character. Both render the same.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="related-wrap">
+      <div class="section-divider" aria-hidden="true">Related Tools</div>
+      <div class="related-grid">
+        <a href="../url-encoder-decoder/index.html" class="related-card">
+          <h3>URL Encoder / Decoder</h3>
+          <span class="related-link">Use Tool &rarr;</span>
+        </a>
+        <a href="../base64-encoder-decoder/index.html" class="related-card">
+          <h3>Base64 Encoder / Decoder</h3>
+          <span class="related-link">Use Tool &rarr;</span>
+        </a>
+        <a href="../json-formatter-validator/index.html" class="related-card">
+          <h3>JSON Formatter &amp; Validator</h3>
+          <span class="related-link">Use Tool &rarr;</span>
+        </a>
+      </div>
+    </div>
+<footer>
     <div class="inner">
       <div class="footer-links">
         <a href="../index.html">All Tools</a>
+        <a href="../blog/index.html">Blog</a>
         <a href="../about/index.html">About</a>
         <a href="../contact/index.html">Contact</a>
         <a href="../privacy/index.html">Privacy</a>
@@ -283,23 +345,16 @@
 
     var toastTimeout;
     function showToast(msg) { toast.textContent = msg; toast.classList.add('show'); clearTimeout(toastTimeout); toastTimeout = setTimeout(function() { toast.classList.remove('show'); }, 2000); }
-
     document.querySelectorAll('.faq-q').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var item = this.parentElement;
         var isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
-        if (!isOpen) item.classList.add('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded', 'false'); });
+        if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
       });
     });
 
-    (function(){
-      var t=document.getElementById('theme-toggle'),i=document.getElementById('theme-icon');
-      function g(){return document.documentElement.getAttribute('data-theme')||'light'}
-      function s(t){document.documentElement.setAttribute('data-theme',t);i.innerHTML=t==='dark'?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>':'<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';try{localStorage.setItem('theme',t)}catch(e){}}
-      try{var l=localStorage.getItem('theme');if(l)s(l);else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)s('dark')}catch(e){}
-      t.addEventListener('click',function(){s(g()==='dark'?'light':'dark')});
-    })();
+    (function(){var t=document.getElementById('theme-toggle'),i=document.getElementById('theme-icon');function g(){return document.documentElement.getAttribute('data-theme')||'light'}function s(t){document.documentElement.setAttribute('data-theme',t);i.innerHTML=t==='dark'?'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>':'<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';try{localStorage.setItem('theme',t)}catch(e){}}try{var l=localStorage.getItem('theme');if(l)s(l);else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)s('dark')}catch(e){}t.addEventListener('click',function(){s(g()==='dark'?'light':'dark')})})();
   </script>
 </body>
 </html>

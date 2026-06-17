@@ -2,3 +2,19 @@
 *.jpg
 *.jpeg
 *.gif
+
+# Unrelated projects
+ES-Barber/
+michelin-restaurant/
+ai-tools-site/
+Hava Durumu Uygulaması/
+Hesap Makinesi/
+"Yaren - PsikolojikYapayZeka/"
+youtube-summarizer/
+
+# OpenCode config
+.opencode/
+
+# OS files
+Thumbs.db
+.DS_Store

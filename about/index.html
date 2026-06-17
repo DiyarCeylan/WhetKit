@@ -6,7 +6,17 @@
   <title>About Us — DevTools</title>
   <meta name="description" content="About DevTools. Free online developer tools that run entirely in your browser. 100% private, no server uploads, no tracking.">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://diyarceylan.github.io/dev-tools/about/">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About DevTools",
+    "url": "https://diyarceylan.github.io/dev-tools/about/",
+    "description": "About DevTools. Free online developer tools that run entirely in your browser. 100% private, no server uploads, no tracking."
+  }
+  </script>
   <script data-goatcounter="https://dev-tools.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3392336799571098" crossorigin="anonymous"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,12 +30,14 @@
       --text: oklch(0.15 0.02 280); --text-secondary: oklch(0.4 0.02 280); --text-muted: oklch(0.65 0.01 280);
       --border: oklch(0.88 0.01 280 / 0.5); --border-hover: oklch(0.8 0.04 280);
       --radius-lg: 20px; --radius: 14px; --radius-sm: 8px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04); --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     [data-theme="dark"] {
       --bg: oklch(0.12 0.02 270); --bg-secondary: oklch(0.16 0.02 270); --bg-card: oklch(0.18 0.02 270 / 0.6);
       --text: oklch(0.95 0.01 280); --text-secondary: oklch(0.7 0.02 280); --text-muted: oklch(0.5 0.02 280);
-      --border: oklch(0.25 0.02 280 / 0.5);
+      --border: oklch(0.25 0.02 280 / 0.5); --border-hover: oklch(0.35 0.04 280);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.7; min-height: 100vh; display: flex; flex-direction: column; }

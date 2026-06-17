@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://diyarceylan.github.io/dev-tools/sitemap.xml

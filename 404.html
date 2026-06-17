@@ -17,14 +17,16 @@
       --brand-gradient: linear-gradient(135deg, oklch(0.55 0.24 265), oklch(0.5 0.26 300));
       --bg: oklch(0.985 0.002 280); --bg-secondary: oklch(0.96 0.004 280);
       --text: oklch(0.15 0.02 280); --text-secondary: oklch(0.4 0.02 280); --text-muted: oklch(0.65 0.01 280);
-      --border: oklch(0.88 0.01 280 / 0.5);
-      --radius-sm: 8px;
+      --border: oklch(0.88 0.01 280 / 0.5); --border-hover: oklch(0.8 0.04 280);
+      --radius-sm: 8px; --radius: 14px; --radius-lg: 20px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04); --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.06), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.04);
       --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
     [data-theme="dark"] {
       --bg: oklch(0.12 0.02 270); --bg-secondary: oklch(0.16 0.02 270);
       --text: oklch(0.95 0.01 280); --text-secondary: oklch(0.7 0.02 280); --text-muted: oklch(0.5 0.02 280);
-      --border: oklch(0.25 0.02 280 / 0.5);
+      --border: oklch(0.25 0.02 280 / 0.5); --border-hover: oklch(0.35 0.04 280);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px; }
@@ -57,7 +59,7 @@
     <a href="index.html">All Tools</a> &mdash; Free developer tools that run in your browser.
   </footer>
   <script>
-    (function(){var t=document.createElement('button');function g(){return document.documentElement.getAttribute('data-theme')||'light'}function s(t){document.documentElement.setAttribute('data-theme',t)}try{var l=localStorage.getItem('theme');if(l)s(l);else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)s('dark')}catch(e){}})();
+    (function(){function g(){return document.documentElement.getAttribute('data-theme')||'light'}function s(t){document.documentElement.setAttribute('data-theme',t)}try{var l=localStorage.getItem('theme');if(l)s(l);else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches)s('dark')}catch(e){}})();
   </script>
 </body>
 </html>

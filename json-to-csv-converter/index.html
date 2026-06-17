@@ -7,6 +7,10 @@
   <meta name="description" content="Convert JSON arrays to CSV instantly in your browser. Supports nested objects, custom delimiters, copy, and download. 100% free and private.">
   <meta name="robots" content="index, follow">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="../manifest.json">
+  <meta name="theme-color" content="#6325d6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <script data-goatcounter="https://dev-tools.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3392336799571098" crossorigin="anonymous"></script>
   <script type="application/ld+json">
@@ -22,7 +26,17 @@
     "description": "Free online JSON to CSV converter. Convert JSON arrays to CSV with nested object flattening, custom delimiters. 100% client-side."
   }
   </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does nested JSON get converted to CSV?","acceptedAnswer":{"@type":"Answer","text":"Nested objects are flattened using dot notation. For example, {\"user\": {\"name\": \"Alice\"}} becomes a column named user.name with value \"Alice\"."}},{"@type":"Question","name":"What if my JSON has inconsistent keys?","acceptedAnswer":{"@type":"Answer","text":"The converter scans all objects in the array and collects every unique key. Missing values are left empty."}},{"@type":"Question","name":"Can I change the delimiter?","acceptedAnswer":{"@type":"Answer","text":"Yes, the tool supports comma, semicolon, tab, and pipe delimiters. Choose the one that matches your target application."}}],"name":"JSON to CSV Converter FAQ"}
+  </script>
   <link rel="canonical" href="https://diyarceylan.github.io/dev-tools/json-to-csv-converter/">
+  <meta property="og:title" content="JSON to CSV Converter — DevTools">
+  <meta property="og:description" content="Convert JSON arrays to CSV with nested object flattening.">
+  <meta property="og:url" content="https://diyarceylan.github.io/dev-tools/json-to-csv-converter/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JSON to CSV Converter — DevTools">
+  <meta name="twitter:description" content="Convert JSON arrays to CSV with nested object flattening.">
 
   <meta property="og:title" content="DevTools — Free Online Developer Tools">
   <meta property="og:description" content="Convert JSON arrays to CSV instantly in your browser. Supports nested objects, custom delimiters, copy, and download.">
@@ -162,6 +176,26 @@
       background: oklch(0.55 0.2 300 / 0.3);
       animation: orbFloat 30s ease-in-out infinite 5s;
     }
+
+    .faq { max-width: 900px; margin: 0 auto; }
+    .faq h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; text-align: center; }
+    .faq-item { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; background: var(--bg-card); backdrop-filter: blur(8px); transition: border-color 0.2s; }
+    .faq-item:hover { border-color: var(--border-hover); }
+    .faq-q { width: 100%; padding: 16px 20px; background: none; border: none; font-family: var(--font); font-size: 0.95rem; font-weight: 600; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; text-align: left; gap: 12px; }
+    .faq-q:hover { background: var(--bg-secondary); }
+    .faq-q svg { transition: transform 0.25s ease; flex-shrink: 0; }
+    .faq-item.open .faq-q svg { transform: rotate(180deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-a-inner { padding: 0 20px 16px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; }
+    .faq-a-inner code { font-family: var(--font-mono); font-size: 0.85em; background: var(--bg-secondary); padding: 1px 5px; border-radius: 4px; }
+    .related-wrap { max-width: 900px; margin: 0 auto; }
+    .related-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .related-grid { grid-template-columns: 1fr; } }
+    .related-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-decoration: none; color: inherit; box-shadow: var(--shadow-sm); backdrop-filter: blur(12px); transition: all 0.3s; display: flex; flex-direction: column; gap: 8px; }
+    .related-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--brand); }
+    .related-card h3 { font-size: 0.95rem; font-weight: 700; }
+    .related-card .related-link { font-size: 0.8rem; font-weight: 600; color: var(--brand); }
 
     @keyframes orbFloat {
       0%, 100% { transform: translate(0, 0) scale(1); }
@@ -683,17 +717,14 @@
       line-height: 1.7;
     }
 
-    .faq {
       margin-top: 60px;
     }
-    .faq h2 {
       font-size: 1.6rem;
       font-weight: 800;
       text-align: center;
       margin-bottom: 28px;
       letter-spacing: -0.02em;
     }
-    .faq-item {
       border: 1px solid var(--border);
       border-radius: var(--radius);
       margin-bottom: 10px;
@@ -703,8 +734,6 @@
       -webkit-backdrop-filter: blur(8px);
       transition: border-color 0.2s;
     }
-    .faq-item:hover { border-color: var(--border-hover); }
-    .faq-item summary {
       padding: 18px 22px;
       font-weight: 600;
       cursor: pointer;
@@ -713,21 +742,16 @@
       align-items: center;
       justify-content: space-between;
     }
-    .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary::after {
       content: '+';
       font-size: 1.2rem;
       font-weight: 400;
       color: var(--text-muted);
       transition: transform 0.3s;
     }
-    .faq-item[open] summary::after {
       transform: rotate(45deg);
     }
-    .faq-item summary:hover {
       background: var(--bg-secondary);
     }
-    .faq-item p {
       padding: 0 22px 18px;
       color: var(--text-secondary);
       font-size: 0.9rem;
@@ -804,6 +828,11 @@
       font-size: 0.8rem;
     }
 
+    .tool-cta { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 24px 28px; margin: 32px 0; text-align: center; backdrop-filter: blur(12px); }
+    .tool-cta p { margin-bottom: 14px; font-size: 1rem; }
+    .tool-cta .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; background: var(--brand-gradient); color: var(--text-on-brand); border: none; border-radius: var(--radius-sm); font-family: var(--font); font-size: 0.9rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.25s cubic-bezier(0.22,1,0.36,1); }
+    .tool-cta .btn:hover { box-shadow: 0 4px 16px oklch(0.55 0.24 265 / 0.35); transform: translateY(-1px); }
+
     @keyframes fadeSlideUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -862,8 +891,9 @@
       </a>
       <div class="header-actions">
         <a href="../index.html" class="nav-link">All Tools</a>
+        <a href="../blog/index.html" class="nav-link">Blog</a>
         <a href="../about/index.html" class="nav-link">About</a>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
           <svg id="theme-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
       </div>
@@ -924,7 +954,7 @@
         <div class="table-wrap" id="csv-output" role="region" aria-label="CSV output"></div>
         <div class="row-count" id="row-count"></div>
         <div class="controls">
-          <button class="btn btn-secondary" id="copy-btn">
+          <button class="btn btn-secondary" id="copy-btn" aria-label="Copy btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             Copy
           </button>
@@ -967,34 +997,19 @@
       </div>
     </section>
 
-    <section class="faq" aria-labelledby="faq-heading">
-      <h2 id="faq-heading">Frequently Asked Questions</h2>
-      <details class="faq-item">
-        <summary>What format should my JSON be in?</summary>
-        <p>Your JSON must be an <strong>array of objects</strong>, like <code>[{"key": "value"}, {"key": "value"}]</code>. All object keys become CSV column headers. Nested objects are automatically flattened &mdash; for example <code>{"address": {"city": "London"}}</code> becomes <code>address.city</code>.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Is my data safe?</summary>
-        <p>Absolutely. Your data never leaves your browser. Everything runs client-side using vanilla JavaScript. We do not store, log, cache, or transmit any of your data &mdash; not even for analytics.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Which delimiter should I choose?</summary>
-        <p><strong>Comma (CSV)</strong> is the standard and works in most spreadsheet apps. <strong>Semicolon</strong> is preferred when your data contains commas. <strong>Tab</strong> is ideal for pasting directly into Excel or for data with complex text content.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Is there a file size limit?</summary>
-        <p>No hard limit, but very large datasets (100,000+ rows) may take a few seconds to process. For extremely large files, consider using a command-line tool like <code>jq</code> instead.</p>
-      </details>
-      <details class="faq-item">
-        <summary>Is this tool really free?</summary>
-        <p>Yes, completely free. No registration, no API keys, no usage limits, no hidden charges. If you find it useful, share it with a fellow developer.</p>
-      </details>
-    </section>
 
     <div class="ad-placeholder" aria-hidden="true">
       AdSense &mdash; In-Article Ad
     </div>
   </main>
+
+    <div class="tool-cta">
+      <p>Learn more in our detailed guide.</p>
+      <a href="../blog/json-to-csv-guide.html" class="btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        Read the Guide
+      </a>
+    </div>
 
   <footer role="contentinfo">
     <div class="footer-inner">
@@ -1006,6 +1021,7 @@
         <div class="footer-tagline">Free developer tools that run in your browser.</div>
       </div>
       <div class="footer-links">
+        <a href="../blog/index.html">Blog</a>
         <a href="../index.html">All Tools</a>
         <a href="../privacy/index.html">Privacy</a>
         <a href="../terms/index.html">Terms</a>
@@ -1031,6 +1047,15 @@
       const inputMsg = document.getElementById('input-message');
       const outputMsg = document.getElementById('output-message');
       const toast = document.getElementById('toast');
+    document.querySelectorAll('.faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.parentElement;
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded', 'false'); });
+        if (!isOpen) { item.classList.add('open'); this.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+
       const themeToggle = document.getElementById('theme-toggle');
       const themeIcon = document.getElementById('theme-icon');
 
@@ -1318,4 +1343,53 @@
 
   </script>
 </body>
-</html>
+</html
+    <div class="section-divider" aria-hidden="true">FAQ</div>
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-0">
+          <span>How does nested JSON get converted to CSV?</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a" id="faq-a-0" role="region">
+          <div class="faq-a-inner">Nested objects are flattened using dot notation. For example, {"user": {"name": "Alice"}} becomes a column named user.name with value "Alice".</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-1">
+          <span>What if my JSON has inconsistent keys?</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a" id="faq-a-1" role="region">
+          <div class="faq-a-inner">The converter scans all objects in the array and collects every unique key. Missing values are left empty.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a-2">
+          <span>Can I change the delimiter?</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-a" id="faq-a-2" role="region">
+          <div class="faq-a-inner">Yes, the tool supports comma, semicolon, tab, and pipe delimiters. Choose the one that matches your target application.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="related-wrap">
+      <div class="section-divider" aria-hidden="true">Related Tools</div>
+      <div class="related-grid">
+        <a href="../json-formatter-validator/index.html" class="related-card">
+          <h3>JSON Formatter &amp; Validator</h3>
+          <span class="related-link">Use Tool &rarr;</span>
+        </a>
+        <a href="../text-diff-checker/index.html" class="related-card">
+          <h3>Text Diff Checker</h3>
+          <span class="related-link">Use Tool &rarr;</span>
+        </a>
+        <a href="../sql-formatter/index.html" class="related-card">
+          <h3>SQL Formatter</h3>
+          <span class="related-link">Use Tool &rarr;</span>
+        </a>
+      </div>
+    </div>
+>
