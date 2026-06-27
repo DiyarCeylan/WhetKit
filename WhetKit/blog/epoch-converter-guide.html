@@ -7,8 +7,7 @@
   <meta name="description" content="Learn how to convert Unix timestamps to human-readable dates and back. Covers epoch time basics, common formats, timezone handling, and practical examples.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://whetkit.me/blog/epoch-converter-guide.html">
-  <link rel="icon" href="../favicon-48.png" sizes="48x48" type="image/png">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <script data-goatcounter="https://dev-tools.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3392336799571098" crossorigin="anonymous"></script>
   <meta property="og:title" content="Epoch / Unix Timestamp Converter: The Complete Guide">
@@ -16,10 +15,6 @@
   <meta property="og:type" content="article">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Epoch / Unix Timestamp Converter: The Complete Guide">
-  <meta property="og:image" content="https://whetkit.me/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:image" content="https://whetkit.me/og-image.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -98,7 +93,7 @@
     .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}
     .tip p{margin-bottom:0;font-size:0.78rem}
     .tip strong:first-child{color:var(--accent)}
-    .related-guides{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:28px 0}.related-guides h2{font-size:0.85rem;font-weight:700;margin:0 0 12px;color:var(--text)}.related-guides ul{list-style:none;padding:0;margin:0}.related-guides li{margin-bottom:6px;font-size:0.78rem}.related-guides a{color:var(--text-secondary);text-decoration:none;font-size:0.78rem}.related-guides a:hover{color:var(--accent)}.tool-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin:32px 0;text-align:center}
+    .tool-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin:32px 0;text-align:center}
     .tool-cta p{margin-bottom:14px;font-size:0.85rem;color:var(--text)}
     .tool-cta .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:var(--font);font-size:0.78rem;font-weight:600;text-decoration:none;cursor:pointer;transition:background 0.2s}
     .tool-cta .btn:hover{background:var(--accent-hover)}
@@ -119,7 +114,7 @@
     footer a:hover{color:var(--text)}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
-    @media print{header,footer,.theme-cursor,.related-guides{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin:28px 0}.related-guides h2{font-size:0.85rem;font-weight:700;margin:0 0 12px;color:var(--text)}.related-guides ul{list-style:none;padding:0;margin:0}.related-guides li{margin-bottom:6px;font-size:0.78rem}.related-guides a{color:var(--text-secondary);text-decoration:none;font-size:0.78rem}.related-guides a:hover{color:var(--accent)}.tool-cta{display:none}}
+    @media print{header,footer,.theme-cursor,.tool-cta{display:none}}
   </style>
 </head>
 <body>
@@ -205,7 +200,7 @@
 
         <pre><code>// Seconds: 1700000000
 // Milliseconds: 1700000000000
-// The millisecond value = seconds Ã— 1000</code></pre>
+// The millisecond value = seconds × 1000</code></pre>
       </section>
 
       <section id="common-epochs">
@@ -361,15 +356,6 @@ let expires = now + (7 * 24 * 60 * 60);
           <li><strong>Validate input:</strong> When accepting timestamps from users or APIs, validate the range. A timestamp of <code>0</code> is the epoch, negative values are before 1970.</li>
           <li><strong>Prefer ISO 8601 for APIs:</strong> For human-readable APIs, consider sending both the epoch timestamp and the ISO 8601 string so consumers can choose their preference.</li>
         </ul>
-
-        <div class="related-guides">
-          <h2>Related Guides</h2>
-          <ul>
-          <li><a href="uuid-generator-guide.html">UUID Generator Guide</a></li>
-          <li><a href="jwt-parser-guide.html">JWT Parser & Inspector Guide</a></li>
-          <li><a href="sql-formatter-guide.html">SQL Formatter & Beautifier Guide</a></li>
-          </ul>
-        </div>
 
         <div class="tool-cta">
           <p>Ready to convert timestamps instantly?</p>
