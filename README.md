@@ -4,7 +4,7 @@
 
 A collection of **free, privacy-first, client-side developer tools** — all running entirely in your browser with zero server uploads.
 
-> **Live site:** [whetkit.me](https://whetkit.me/)
+> **Live site:** [https://whetkit.me/](https://whetkit.me/)
 
 ## Quick Start
 
