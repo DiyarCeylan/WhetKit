@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Live Preview: Test and Debug HTML Online | WhetKit</title>
+  <meta name="description" content="Learn how to use an HTML live preview editor. Test HTML, CSS, and JavaScript code in real-time with a sandboxed preview. Perfect for prototyping.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://whetkit.me/blog/html-preview-live-editor.html">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <script data-goatcounter="https://dev-tools.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3392336799571098" crossorigin="anonymous"></script>
+  <meta property="og:title" content="HTML Live Preview: Test and Debug HTML Online">
+  <meta property="og:description" content="Learn how to use an HTML live preview editor. Test HTML, CSS, and JavaScript code in real-time with a sandboxed preview. Perfect for prototyping.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://whetkit.me/icon-512.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HTML Live Preview: Test and Debug HTML Online">
+  <meta name="twitter:description" content="Learn how to use an HTML live preview editor. Test HTML, CSS, and JavaScript code in real-time with a sandboxed preview. Perfect for prototyping.">
+  <meta name="twitter:image" content="https://whetkit.me/icon-512.svg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "HTML Live Preview: Test and Debug HTML Online",
+    "description": "Learn how to use an HTML live preview editor. Test HTML, CSS, and JavaScript code in real-time with a sandboxed preview. Perfect for prototyping.",
+    "url": "https://whetkit.me/blog/html-preview-live-editor",
+    "author": { "@type": "Organization", "name": "WhetKit" },
+    "publisher": { "@type": "Organization", "name": "WhetKit" },
+    "datePublished": "2026-07-12",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://whetkit.me/blog/html-preview-live-editor" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://whetkit.me/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://whetkit.me/blog/" },
+      { "@type": "ListItem", "position": 3, "name": "HTML Live Preview Guide" }
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --bg-card: rgba(255,255,255,0.03);
+      --bg-elevated: rgba(255,255,255,0.06);
+      --text: #fafafa;
+      --text-secondary: #a1a1aa;
+      --text-muted: #52525b;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --accent: #a78bfa;
+      --accent-hover: #c4b5fd;
+      --font: 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      --header-h: 56px;
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f0;
+      --bg-card: rgba(0,0,0,0.02);
+      --bg-elevated: rgba(0,0,0,0.04);
+      --text: #18181b;
+      --text-secondary: #52525b;
+      --text-muted: #a1a1aa;
+      --border: rgba(0,0,0,0.06);
+      --border-hover: rgba(0,0,0,0.12);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    body::before{content:'';position:fixed;inset:0;z-index:-1;opacity:0.4;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-repeat:repeat;background-size:256px 256px;pointer-events:none;mix-blend-mode:overlay}
+    header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}.header-inner{max-width:800px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:var(--header-h)}header::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+    .logo-area{display:flex;align-items:center;gap:12px}.logo{display:flex;align-items:center;gap:8px;font-size:0.95rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-0.02em;white-space:nowrap;flex-shrink:0}.logo svg{flex-shrink:0}.logo span{color:var(--accent)}.logo-sub{font-size:0.75rem;color:var(--text-muted);margin-left:4px}
+    .nav-links{display:flex;align-items:center;gap:0}.nav-links a{padding:6px 16px;font-size:0.8rem;color:var(--text-secondary);text-decoration:none;transition:color 0.2s;font-weight:400;letter-spacing:-0.01em}.nav-links a:hover{color:var(--text)}.nav-links span{width:1px;height:14px;background:rgba(255,255,255,0.08);display:inline-block;flex-shrink:0}[data-theme="light"] .nav-links span{background:rgba(0,0,0,0.08)}
+    .theme-cursor{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;margin-left:8px;cursor:pointer;border:none;background:none;color:var(--text-secondary);transition:color 0.2s}.theme-cursor:hover{color:var(--text)}
+    main{flex:1;max-width:800px;margin:0 auto;padding:0 24px;width:100%}
+    article{padding:32px 0 60px;animation:fadeIn 0.5s ease-out}
+    .breadcrumb{font-size:0.7rem;color:var(--text-muted);padding:0 0 20px;letter-spacing:-0.01em}.breadcrumb a{color:var(--text-muted);text-decoration:none;transition:color 0.2s}.breadcrumb a:hover{color:var(--text-secondary)}.breadcrumb span{color:var(--text-muted);margin:0 6px}
+    .article-meta{font-size:0.7rem;color:var(--text-muted);margin-bottom:28px;display:flex;gap:16px;flex-wrap:wrap}
+    article h1{font-size:clamp(1.3rem,2.5vw,1.8rem);font-weight:700;letter-spacing:-0.03em;margin-bottom:8px;color:var(--text)}
+    article h2{font-size:1.1rem;font-weight:700;margin-top:36px;margin-bottom:12px;letter-spacing:-0.02em;color:var(--text)}
+    article h3{font-size:0.95rem;font-weight:600;margin-top:24px;margin-bottom:8px;color:var(--text)}
+    article p,article li{font-size:0.82rem;color:var(--text-secondary);line-height:1.8}
+    article p{margin-bottom:16px}
+    article ul,article ol{padding-left:24px;margin-bottom:16px}
+    article li{margin-bottom:4px}
+    article a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+    article a:hover{opacity:0.8}
+    pre{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;overflow-x:auto;font-family:var(--font);font-size:0.75rem;line-height:1.7;margin-bottom:16px}
+    code{font-family:var(--font);font-size:0.82em;background:var(--bg-card);padding:2px 6px;border-radius:4px}
+    pre code{background:none;padding:0}
+    .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}
+    .tip p{margin-bottom:0;font-size:0.78rem}
+    .tip strong:first-child{color:var(--accent)}
+    .tool-cta{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin:32px 0;text-align:center}
+    .tool-cta p{margin-bottom:14px;font-size:0.85rem;color:var(--text)}
+    .tool-cta .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:var(--font);font-size:0.78rem;font-weight:600;text-decoration:none;cursor:pointer;transition:background 0.2s}
+    .tool-cta .btn:hover{background:var(--accent-hover)}
+    .table-wrap{overflow-x:auto;margin-bottom:16px}
+    table{width:100%;border-collapse:collapse;font-size:0.78rem}
+    th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+    th{font-weight:600;background:var(--bg-card);color:var(--text-secondary)}
+    td{color:var(--text-secondary)}
+    nav.toc{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:18px 22px;margin-bottom:28px}
+    nav.toc h2{font-size:0.85rem;font-weight:700;margin:0 0 12px;color:var(--text)}
+    nav.toc ul{list-style:none;padding:0;margin:0}
+    nav.toc li{margin-bottom:6px}
+    nav.toc a{color:var(--text-secondary);text-decoration:none;font-size:0.78rem}
+    nav.toc a:hover{color:var(--accent)}
+    footer{border-top:1px solid var(--border);padding:20px 24px;margin-top:auto;text-align:center;font-size:0.7rem;color:var(--text-muted)}
+    footer .footer-links{display:flex;justify-content:center;gap:20px;margin-bottom:8px;flex-wrap:wrap}
+    footer a{color:var(--text-secondary);text-decoration:none;transition:color 0.2s}
+    footer a:hover{color:var(--text)}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
+    @media print{header,footer,.theme-cursor,.tool-cta{display:none}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <a href="../index.html" class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>WhetKit</a>
+      </div>
+      <div class="nav-links">
+        <a href="../about/index.html">about</a>
+        <a href="../blog/index.html">blog</a>
+        <span></span>
+        <button class="theme-cursor" id="theme-toggle" aria-label="toggle theme" title="toggle theme"><svg id="theme-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <article>
+      <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span>/</span>
+        <a href="index.html">Blog</a>
+        <span>/</span>
+        <span>HTML Live Preview Guide</span>
+      </div>
+
+      <header>
+        <h1>HTML Live Preview: Test and Debug HTML Online</h1>
+        <div class="article-meta">
+          <span>July 12, 2026</span>
+          <span>5 min read</span>
+        </div>
+      </header>
+
+      <nav class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+          <li><a href="#how-it-works">How Live Preview Works</a></li>
+          <li><a href="#sandbox">Sandboxed iframe Security</a></li>
+          <li><a href="#prototyping">HTML/CSS/JS Prototyping</a></li>
+          <li><a href="#debugging">Debugging with Live Preview</a></li>
+        </ul>
+      </nav>
+
+      <section id="how-it-works">
+        <h2>How Live Preview Works</h2>
+        <p>An HTML live preview editor lets you write code on one side and see the rendered result instantly on the other. Under the hood, it uses an iframe with <code>srcdoc</code> or a dynamically written document. Every keystroke triggers a DOM update inside the iframe.</p>
+
+        <pre><code>&lt;iframe id="preview"&gt;&lt;/iframe&gt;
+&lt;script&gt;
+  const editor = document.getElementById('editor');
+  const preview = document.getElementById('preview');
+
+  editor.addEventListener('input', () =&gt; {
+    const doc = preview.contentDocument;
+    doc.open();
+    doc.write(editor.value);
+    doc.close();
+  });
+&lt;/script&gt;</code></pre>
+
+        <p>More sophisticated editors debounce the updates (e.g., 300ms delay) to avoid performance issues while typing. They also inject error listeners inside the iframe to catch JavaScript errors and display them in the editor panel.</p>
+      </section>
+
+      <section id="sandbox">
+        <h2>Sandboxed iframe Security</h2>
+        <p>Running arbitrary user HTML requires isolation. The <code>sandbox</code> attribute on the iframe restricts what the embedded code can do:</p>
+
+        <pre><code>&lt;iframe sandbox="allow-scripts allow-same-origin"
+  srcdoc="..."&gt;&lt;/iframe&gt;</code></pre>
+
+        <p>Common sandbox flags: <code>allow-scripts</code> enables JavaScript execution, <code>allow-same-origin</code> allows access to parent origin storage, and <code>allow-forms</code> enables form submission. Without <code>sandbox</code>, user code could access cookies, localStorage, or navigate the parent page.</p>
+
+        <div class="tip">
+          <p><strong>Tip:</strong> For maximum security, use <code>sandbox="allow-scripts"</code> without <code>allow-same-origin</code>. This prevents the preview from accessing the parent page's storage and APIs.</p>
+        </div>
+      </section>
+
+      <section id="prototyping">
+        <h2>HTML/CSS/JS Prototyping</h2>
+        <p>Live editors are ideal for rapid prototyping. Instead of creating files, setting up a server, and refreshing, you see changes instantly. This is useful for testing:</p>
+
+        <ul>
+          <li>CSS layout experiments (flexbox, grid, animations)</li>
+          <li>HTML structure and semantic elements</li>
+          <li>Small JavaScript snippets and DOM manipulation</li>
+          <li>CSS custom properties and media queries</li>
+        </ul>
+
+        <pre><code>&lt;div class="card"&gt;
+  &lt;h2&gt;Hello World&lt;/h2&gt;
+  &lt;p&gt;This renders instantly in the preview.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  .card {
+    padding: 2rem;
+    border-radius: 8px;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    font-family: system-ui;
+  }
+&lt;/style&gt;</code></pre>
+      </section>
+
+      <section id="debugging">
+        <h2>Debugging with Live Preview</h2>
+        <p>When something breaks in your markup, the live preview shows it immediately — no need to reload. Common issues caught instantly:</p>
+
+        <ul>
+          <li>Unclosed tags or malformed HTML</li>
+          <li>CSS specificity conflicts</li>
+          <li>JavaScript runtime errors (displayed in console panel)</li>
+          <li>Responsive layout breaks at different viewport sizes</li>
+        </ul>
+
+        <div class="tool-cta">
+          <p>Test your HTML, CSS, and JavaScript in real-time?</p>
+          <a href="../html-preview/" class="btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            Use the HTML Preview tool
+          </a>
+        </div>
+      </section>
+    </article>
+  </main>
+  <footer>
+    <div class="footer-links">
+      <a href="../index.html">all tools</a>
+      <a href="../about/index.html">about</a>
+      <a href="../blog/index.html">blog</a>
+      <a href="../contact/index.html">contact</a>
+      <a href="../privacy/index.html">privacy</a>
+      <a href="../terms/index.html">terms</a>
+    </div>
+    &copy; 2026 WhetKit &mdash; every tool runs 100% client-side.
+  </footer>
+  <script>
+    (function(){var t=document.getElementById('theme-toggle'),i=document.getElementById('theme-icon');function g(){return document.documentElement.getAttribute('data-theme')||'dark'}function s(m){document.documentElement.setAttribute('data-theme',m);i.innerHTML=m==='dark'?'<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>':'<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';try{localStorage.setItem('theme',m)}catch(e){}}try{var l=localStorage.getItem('theme');if(l)s(l);else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme:light)').matches)s('light')}catch(e){}t.addEventListener('click',function(){s(g()==='dark'?'light':'dark')})})();
+  </script>
+</body>
+</html>
