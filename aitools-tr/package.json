@@ -1,0 +1,12 @@
+{
+  "name": "aitools-tr",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "dev": "npm run dev --workspaces",
+    "dev:frontend": "npm run dev --workspace=packages/frontend",
+    "dev:backend": "npm run dev --workspace=packages/backend",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces"
+  }
+}
