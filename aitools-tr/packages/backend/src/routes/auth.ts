@@ -2,6 +2,8 @@ import { Router } from 'express'
 import { z } from 'zod'
 import { register, login } from '../services/authService'
 import { authLimiter } from '../middleware/rateLimiter'
+import { authenticate, AuthRequest } from '../middleware/auth'
+import { prisma } from '../lib/prisma'
 
 const router = Router()
 
@@ -26,6 +28,14 @@ router.post('/login', authLimiter, async (req, res) => {
   const body = loginSchema.parse(req.body)
   const result = await login(body.email, body.password)
   res.json(result)
+})
+
+router.get('/me', authenticate, async (req: AuthRequest, res) => {
+  const user = await prisma.user.findUnique({
+    where: { id: req.userId },
+    select: { id: true, email: true, name: true, avatarUrl: true }
+  })
+  res.json(user)
 })
 
 export default router
