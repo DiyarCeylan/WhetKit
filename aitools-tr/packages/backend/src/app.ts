@@ -5,6 +5,7 @@ import { env } from './config/env'
 import { errorHandler } from './middleware/errorHandler'
 import { apiLimiter } from './middleware/rateLimiter'
 import authRoutes from './routes/auth'
+import toolsRoutes from './routes/tools'
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.get('/api/health', (_req, res) => {
 })
 
 app.use('/api/auth', authRoutes)
+app.use('/api/tools', toolsRoutes)
 
 app.use(errorHandler)
 
