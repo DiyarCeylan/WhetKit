@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UUID Generator — Free, No Upload, Client-Side | WhetKit</title>
-  <meta name="description" content="Free online UUID generator. Generate UUID v1, v4, or v7 individually or in bulk (up to 1000). Privacy-first, all processing happens in your browser.">
+  <title>UUID Generator — Create v4 & v7 UUIDs Instantly | WhetKit</title>
+  <meta name="description" content="Generate UUIDs in v4 (random) or v7 (time-ordered) format. Create up to 1000 UUIDs at once. UUID v7 is ideal for database primary keys and distributed systems.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://whetkit.me/uuid-generator/">
-  <meta property="og:title" content="UUID Generator — Free, No Upload, Client-Side | WhetKit">
-  <meta property="og:description" content="Free online UUID generator. Generate UUID v1, v4, or v7 individually or in bulk (up to 1000). Privacy-first, all processing happens in your browser.">
+  <meta property="og:title" content="UUID Generator — Create v4 & v7 UUIDs Instantly | WhetKit">
+  <meta property="og:description" content="Generate UUIDs in v4 (random) or v7 (time-ordered) format. Create up to 1000 UUIDs at once. UUID v7 is ideal for database primary keys and distributed systems.">
   <meta property="og:url" content="https://whetkit.me/uuid-generator/">
   <meta property="og:image" content="https://whetkit.me/icon-512.svg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="UUID Generator — Free, No Upload, Client-Side | WhetKit">
-  <meta name="twitter:description" content="Free online UUID generator. Generate UUID v1, v4, or v7 individually or in bulk (up to 1000). Privacy-first, all processing happens in your browser.">
+  <meta name="twitter:title" content="UUID Generator — Create v4 & v7 UUIDs Instantly | WhetKit">
+  <meta name="twitter:description" content="Generate UUIDs in v4 (random) or v7 (time-ordered) format. Create up to 1000 UUIDs at once. UUID v7 is ideal for database primary keys and distributed systems.">
   <meta name="twitter:image" content="https://whetkit.me/icon-512.svg">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="../manifest.json">
@@ -103,6 +103,7 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
     @media print{header,footer,.theme-cursor,.btn-row{display:none}}
+    .tool-ref{max-width:900px;margin:0 auto 48px}.tool-ref h3{font-size:0.85rem;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em;color:var(--text)}.tool-ref p{font-size:0.78rem;color:var(--text-secondary);line-height:1.8;margin-bottom:12px}.tool-ref table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px}.tool-ref th,.tool-ref td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}.tool-ref th{font-weight:600;color:var(--text-secondary);background:var(--bg-card)}.tool-ref td{color:var(--text-secondary)}.tool-ref code{font-family:var(--font);font-size:0.75rem;background:var(--bg-elevated);padding:2px 6px;border-radius:4px}.tool-ref pre{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;overflow-x:auto;font-family:var(--font);font-size:0.75rem;line-height:1.7;margin-bottom:16px}.tool-ref .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}.tool-ref .tip p{margin-bottom:0;font-size:0.78rem}
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://whetkit.me/"},{"@type":"ListItem","position":2,"name":"UUID Generator"}]}
@@ -192,6 +193,31 @@
         <div class="faq-a"><div class="faq-a-inner">v4 has 2^122 possible values — the chance of collision is astronomically low (1 in 5.3 quintillion). For practical purposes, they are unique.</div></div>
       </div>
     </div>
+    <div class="section-div" aria-hidden="true">UUID Version Guide</div>
+    <div class="tool-ref">
+      <h3>UUID Versions Compared</h3>
+      <table>
+        <thead><tr><th>Version</th><th>Method</th><th>Random?</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>v1</td><td>Timestamp + MAC address</td><td>Time-based</td><td>Legacy systems (leaks MAC!)</td></tr>
+          <tr><td>v3</td><td>MD5 namespace hash</td><td>Deterministic</td><td>Same input → same UUID</td></tr>
+          <tr><td>v4</td><td>Random</td><td>Yes</td><td>General purpose, most common</td></tr>
+          <tr><td>v5</td><td>SHA-1 namespace hash</td><td>Deterministic</td><td>Same input → same UUID (better than v3)</td></tr>
+          <tr><td>v7</td><td>Timestamp + random</td><td>Time-ordered</td><td>Database primary keys (new!)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Format Breakdown (v4)</h3>
+      <pre><code>xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+        |    |   |   |
+        |    |   |   └─ version (4)
+        |    |   └─ variant (8, 9, a, or b)
+        |    └─ random
+        └─ random</code></pre>
+
+      <div class="tip"><p><strong>Database tip:</strong> UUID v7 is time-ordered, making it ideal for database primary keys — it avoids the random page splits that v4 causes in B-tree indexes.</p></div>
+    </div>
+
     <div class="section-div" aria-hidden="true">related tools</div>
     <div class="related">
       <a href="../epoch-converter/index.html"><div class="name">&#8594; Epoch Converter</div><div class="hint">convert timestamps</div></a>

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JWT Parser — Free, No Upload, Client-Side | WhetKit</title>
-  <meta name="description" content="Free online JWT parser. Decode and inspect JSON Web Tokens — view header, payload, signature, and validate expiration. 100% client-side, zero uploads.">
+  <title>JWT Decoder — Inspect JSON Web Token Headers & Payloads | WhetKit</title>
+  <meta name="description" content="Decode and inspect JWT tokens — view header, payload, and signature separately. Check expiration, claims, and token structure without sending data to any server.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://whetkit.me/jwt-parser/">
-  <meta property="og:title" content="JWT Parser — Free, No Upload, Client-Side | WhetKit">
-  <meta property="og:description" content="Free online JWT parser. Decode and inspect JSON Web Tokens — view header, payload, signature, and validate expiration. 100% client-side, zero uploads.">
+  <meta property="og:title" content="JWT Decoder — Inspect JSON Web Token Headers & Payloads | WhetKit">
+  <meta property="og:description" content="Decode and inspect JWT tokens — view header, payload, and signature separately. Check expiration, claims, and token structure without sending data to any server.">
   <meta property="og:url" content="https://whetkit.me/jwt-parser/">
   <meta property="og:image" content="https://whetkit.me/icon-512.svg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="JWT Parser — Free, No Upload, Client-Side | WhetKit">
-  <meta name="twitter:description" content="Free online JWT parser. Decode and inspect JSON Web Tokens — view header, payload, signature, and validate expiration. 100% client-side, zero uploads.">
+  <meta name="twitter:title" content="JWT Decoder — Inspect JSON Web Token Headers & Payloads | WhetKit">
+  <meta name="twitter:description" content="Decode and inspect JWT tokens — view header, payload, and signature separately. Check expiration, claims, and token structure without sending data to any server.">
   <meta name="twitter:image" content="https://whetkit.me/icon-512.svg">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="../manifest.json">
@@ -111,6 +111,7 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
     @media print{header,footer,.theme-cursor,.btn-row{display:none}}
+    .tool-ref{max-width:900px;margin:0 auto 48px}.tool-ref h3{font-size:0.85rem;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em;color:var(--text)}.tool-ref p{font-size:0.78rem;color:var(--text-secondary);line-height:1.8;margin-bottom:12px}.tool-ref table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px}.tool-ref th,.tool-ref td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}.tool-ref th{font-weight:600;color:var(--text-secondary);background:var(--bg-card)}.tool-ref td{color:var(--text-secondary)}.tool-ref code{font-family:var(--font);font-size:0.75rem;background:var(--bg-elevated);padding:2px 6px;border-radius:4px}.tool-ref pre{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;overflow-x:auto;font-family:var(--font);font-size:0.75rem;line-height:1.7;margin-bottom:16px}.tool-ref .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}.tool-ref .tip p{margin-bottom:0;font-size:0.78rem}
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://whetkit.me/"},{"@type":"ListItem","position":2,"name":"JWT Parser"}]}
@@ -205,6 +206,31 @@
         <button class="faq-q" aria-expanded="false"><span>Is my token sent to a server?</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="faq-a"><div class="faq-a-inner">No, everything runs client-side in your browser. The token never leaves your computer.</div></div>
       </div>
+    </div>
+
+    <div class="section-div" aria-hidden="true">JWT Anatomy</div>
+    <div class="tool-ref">
+      <h3>JWT Structure</h3>
+      <p>A JWT has three Base64URL-encoded parts separated by dots:</p>
+      <pre><code>eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0In0.abc123signature
+ |__________| |______________| |____________|
+    Header        Payload         Signature</code></pre>
+
+      <h3>Common Header & Payload Claims</h3>
+      <table>
+        <thead><tr><th>Claim</th><th>Location</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td><code>alg</code></td><td>Header</td><td>Signing algorithm (HS256, RS256)</td></tr>
+          <tr><td><code>typ</code></td><td>Header</td><td>Token type (always "JWT")</td></tr>
+          <tr><td><code>sub</code></td><td>Payload</td><td>Subject (user ID)</td></tr>
+          <tr><td><code>iss</code></td><td>Payload</td><td>Issuer (who created it)</td></tr>
+          <tr><td><code>exp</code></td><td>Payload</td><td>Expiration (Unix timestamp)</td></tr>
+          <tr><td><code>iat</code></td><td>Payload</td><td>Issued at (Unix timestamp)</td></tr>
+          <tr><td><code>aud</code></td><td>Payload</td><td>Audience (intended recipient)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip"><p><strong>Security warning:</strong> JWT payloads are only encoded, NOT encrypted. Anyone can decode the payload. Never put secrets (passwords, API keys) in a JWT — use <code>jwe</code> (encrypted JWT) for sensitive data.</p></div>
     </div>
 
     <div class="section-div" aria-hidden="true">related tools</div>

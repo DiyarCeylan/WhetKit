@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base64 Encoder/Decoder — Free, No Upload, Client-Side | WhetKit</title>
-  <meta name="description" content="Free online Base64 encoder and decoder. Encode text or files to Base64 or decode back. Privacy-first, no server uploads, runs entirely in your browser.">
+  <title>Base64 Encoder & Decoder — Encode/Decode Text & Files Online | WhetKit</title>
+  <meta name="description" content="Encode text, files, and images to Base64 format or decode Base64 back. Supports data URIs, file upload, and copy-to-clipboard. Runs entirely in your browser.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://whetkit.me/base64-encoder-decoder/">
-  <meta property="og:title" content="Base64 Encoder/Decoder — Free, No Upload, Client-Side | WhetKit">
-  <meta property="og:description" content="Free online Base64 encoder and decoder. Encode text or files to Base64 or decode back. Privacy-first, no server uploads, runs entirely in your browser.">
+  <meta property="og:title" content="Base64 Encoder & Decoder — Encode/Decode Text & Files Online | WhetKit">
+  <meta property="og:description" content="Encode text, files, and images to Base64 format or decode Base64 back. Supports data URIs, file upload, and copy-to-clipboard. Runs entirely in your browser.">
   <meta property="og:url" content="https://whetkit.me/base64-encoder-decoder/">
   <meta property="og:image" content="https://whetkit.me/icon-512.svg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Base64 Encoder/Decoder — Free, No Upload, Client-Side | WhetKit">
-  <meta name="twitter:description" content="Free online Base64 encoder and decoder. Encode text or files to Base64 or decode back. Privacy-first, no server uploads, runs entirely in your browser.">
+  <meta name="twitter:title" content="Base64 Encoder & Decoder — Encode/Decode Text & Files Online | WhetKit">
+  <meta name="twitter:description" content="Encode text, files, and images to Base64 format or decode Base64 back. Supports data URIs, file upload, and copy-to-clipboard. Runs entirely in your browser.">
   <meta name="twitter:image" content="https://whetkit.me/icon-512.svg">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="../manifest.json">
@@ -102,6 +102,7 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
     @media print{header,footer,.theme-cursor,.btn-row{display:none}}
+    .tool-ref{max-width:900px;margin:0 auto 48px}.tool-ref h3{font-size:0.85rem;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em;color:var(--text)}.tool-ref p{font-size:0.78rem;color:var(--text-secondary);line-height:1.8;margin-bottom:12px}.tool-ref table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px}.tool-ref th,.tool-ref td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}.tool-ref th{font-weight:600;color:var(--text-secondary);background:var(--bg-card)}.tool-ref td{color:var(--text-secondary)}.tool-ref code{font-family:var(--font);font-size:0.75rem;background:var(--bg-elevated);padding:2px 6px;border-radius:4px}.tool-ref pre{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;overflow-x:auto;font-family:var(--font);font-size:0.75rem;line-height:1.7;margin-bottom:16px}.tool-ref .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}.tool-ref .tip p{margin-bottom:0;font-size:0.78rem}
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://whetkit.me/"},{"@type":"ListItem","position":2,"name":"Base64 Encoder / Decoder"}]}
@@ -186,6 +187,29 @@
         <button class="faq-q" aria-expanded="false"><span>Does Base64 increase file size?</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="faq-a"><div class="faq-a-inner">Yes, Base64 increases size by about 33%. For large files, consider sending binary directly or using compression before encoding.</div></div>
       </div>
+    </div>
+
+    <div class="section-div" aria-hidden="true">Base64 Encoding Reference</div>
+    <div class="tool-ref">
+      <h3>How Base64 Works</h3>
+      <p>Base64 converts binary data to 64 ASCII characters: <code>A-Z</code>, <code>a-z</code>, <code>0-9</code>, <code>+</code>, and <code>/</code> (with <code>=</code> as padding). Every 3 bytes of input become 4 characters of output — that's why Base64 increases size by ~33%.</p>
+
+      <h3>Common Use Cases</h3>
+      <table>
+        <thead><tr><th>Use Case</th><th>Why Base64?</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Data URIs</td><td>Embed images directly in HTML/CSS</td><td><code>data:image/png;base64,iVBOR...</code></td></tr>
+          <tr><td>Email attachments</td><td>SMTP is text-only protocol</td><td>MIME multipart encoding</td></tr>
+          <tr><td>JWT tokens</td><td>URL-safe header/payload encoding</td><td><code>eyJhbGci...</code></td></tr>
+          <tr><td>API auth headers</td><td>HTTP Basic Authentication</td><td><code>Authorization: Basic dXNlcjpwYXNz</code></td></tr>
+          <tr><td>JSON embedding</td><td>Binary data in JSON responses</td><td><code>{"image": "data:image/..."}</code></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Base64 vs Base64URL</h3>
+      <pre><code>Standard Base64:  ABCDefgh+/==
+Base64URL:        ABCDefgh-_     (no padding, URL-safe chars)</code></pre>
+      <p>Base64URL replaces <code>+</code> → <code>-</code>, <code>/</code> → <code>_</code>, and removes <code>=</code> padding. Use it in URLs and filenames.</p>
     </div>
 
     <div class="section-div" aria-hidden="true">related tools</div>

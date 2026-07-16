@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Base64 Image Converter — Free, No Upload, Client-Side | WhetKit</title>
-  <meta name="description" content="Free online Base64 image converter. Encode images to Base64 data URIs or decode back to viewable/downloadable images. Drag-and-drop, 100% client-side.">
+  <title>Base64 Image Converter — Turn Images Into Data URIs | WhetKit</title>
+  <meta name="description" content="Convert images to Base64 data URIs and back. Upload PNG, JPG, SVG, or GIF — get an embeddable data URI string. Perfect for inline HTML/CSS images.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://whetkit.me/base64-image-converter/">
-  <meta property="og:title" content="Base64 Image Converter — Free, No Upload, Client-Side | WhetKit">
-  <meta property="og:description" content="Free online Base64 image converter. Encode images to Base64 data URIs or decode back to viewable/downloadable images. Drag-and-drop, 100% client-side.">
+  <meta property="og:title" content="Base64 Image Converter — Turn Images Into Data URIs | WhetKit">
+  <meta property="og:description" content="Convert images to Base64 data URIs and back. Upload PNG, JPG, SVG, or GIF — get an embeddable data URI string. Perfect for inline HTML/CSS images.">
   <meta property="og:url" content="https://whetkit.me/base64-image-converter/">
   <meta property="og:image" content="https://whetkit.me/icon-512.svg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Base64 Image Converter — Free, No Upload, Client-Side | WhetKit">
-  <meta name="twitter:description" content="Free online Base64 image converter. Encode images to Base64 data URIs or decode back to viewable/downloadable images. Drag-and-drop, 100% client-side.">
+  <meta name="twitter:title" content="Base64 Image Converter — Turn Images Into Data URIs | WhetKit">
+  <meta name="twitter:description" content="Convert images to Base64 data URIs and back. Upload PNG, JPG, SVG, or GIF — get an embeddable data URI string. Perfect for inline HTML/CSS images.">
   <meta name="twitter:image" content="https://whetkit.me/icon-512.svg">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="../manifest.json">
@@ -107,6 +107,7 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
     @media print{header,footer,.theme-cursor,.btn-row{display:none}}
+    .tool-ref{max-width:900px;margin:0 auto 48px}.tool-ref h3{font-size:0.85rem;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em;color:var(--text)}.tool-ref p{font-size:0.78rem;color:var(--text-secondary);line-height:1.8;margin-bottom:12px}.tool-ref table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px}.tool-ref th,.tool-ref td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}.tool-ref th{font-weight:600;color:var(--text-secondary);background:var(--bg-card)}.tool-ref td{color:var(--text-secondary)}.tool-ref code{font-family:var(--font);font-size:0.75rem;background:var(--bg-elevated);padding:2px 6px;border-radius:4px}.tool-ref pre{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;overflow-x:auto;font-family:var(--font);font-size:0.75rem;line-height:1.7;margin-bottom:16px}.tool-ref .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}.tool-ref .tip p{margin-bottom:0;font-size:0.78rem}
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://whetkit.me/"},{"@type":"ListItem","position":2,"name":"Base64 Image Converter"}]}
@@ -199,6 +200,32 @@
         <button class="faq-q" aria-expanded="false"><span>What image formats are supported?</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="faq-a"><div class="faq-a-inner">PNG, JPEG, GIF, WebP, and SVG. The format is detected automatically from the file or data URI header.</div></div>
       </div>
+    </div>
+
+    <div class="section-div" aria-hidden="true">Data URI Reference</div>
+    <div class="tool-ref">
+      <h3>Data URI Syntax</h3>
+      <p>A data URI embeds file content directly into HTML or CSS, eliminating extra HTTP requests. The format is:</p>
+      <pre><code>data:[&lt;mediatype&gt;][;base64],&lt;data&gt;
+
+# Examples
+data:image/png;base64,iVBORw0KGgo...
+data:image/svg+xml,%3Csvg xmlns='...'/%3E
+data:text/plain;base64,SGVsbG8=</code></pre>
+
+      <h3>When to Use Data URIs</h3>
+      <table>
+        <thead><tr><th>Scenario</th><th>Recommendation</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Small icons (&lt;5KB)</td><td>Use data URI</td><td>Reduces HTTP requests, instant load</td></tr>
+          <tr><td>Hero images (&gt;50KB)</td><td>Use external file</td><td>Data URIs block HTML parsing</td></tr>
+          <tr><td>Email signatures</td><td>Use data URI</td><td>No external hosting needed</td></tr>
+          <tr><td>CSS background</td><td>Small patterns: yes</td><td>Large images bloat CSS file</td></tr>
+          <tr><td>Cacheability</td><td>Use external file</td><td>Data URIs can't be cached separately</td></tr>
+        </tbody>
+      </table>
+
+      <div class="tip"><p><strong>Performance rule:</strong> Images under 4KB are good candidates for data URIs. Above that, the base64 overhead (~33%) and blocked parallel downloads make external files faster.</p></div>
     </div>
 
     <div class="section-div" aria-hidden="true">related tools</div>

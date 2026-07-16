@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Diff Checker — Free, No Upload, Client-Side | WhetKit</title>
-  <meta name="description" content="Free online text diff checker. Compare two texts side by side with highlighted additions, deletions, and changes. Privacy-first, no server uploads.">
+  <title>Text Diff Checker — Compare Two Texts Side by Side | WhetKit</title>
+  <meta name="description" content="Compare two texts and see exactly what changed. Highlights additions, deletions, and modifications line by line. Useful for code review, config comparison, and document review.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://whetkit.me/text-diff-checker/">
-  <meta property="og:title" content="Text Diff Checker — Free, No Upload, Client-Side | WhetKit">
-  <meta property="og:description" content="Free online text diff checker. Compare two texts side by side with highlighted additions, deletions, and changes. Privacy-first, no server uploads.">
+  <meta property="og:title" content="Text Diff Checker — Compare Two Texts Side by Side | WhetKit">
+  <meta property="og:description" content="Compare two texts and see exactly what changed. Highlights additions, deletions, and modifications line by line. Useful for code review, config comparison, and document review.">
   <meta property="og:url" content="https://whetkit.me/text-diff-checker/">
   <meta property="og:image" content="https://whetkit.me/icon-512.svg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Text Diff Checker — Free, No Upload, Client-Side | WhetKit">
-  <meta name="twitter:description" content="Free online text diff checker. Compare two texts side by side with highlighted additions, deletions, and changes. Privacy-first, no server uploads.">
+  <meta name="twitter:title" content="Text Diff Checker — Compare Two Texts Side by Side | WhetKit">
+  <meta name="twitter:description" content="Compare two texts and see exactly what changed. Highlights additions, deletions, and modifications line by line. Useful for code review, config comparison, and document review.">
   <meta name="twitter:image" content="https://whetkit.me/icon-512.svg">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="../manifest.json">
@@ -112,6 +112,7 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
     @media print{header,footer,.theme-cursor,.btn-row{display:none}}
+    .tool-ref{max-width:900px;margin:0 auto 48px}.tool-ref h3{font-size:0.85rem;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em;color:var(--text)}.tool-ref p{font-size:0.78rem;color:var(--text-secondary);line-height:1.8;margin-bottom:12px}.tool-ref table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px}.tool-ref th,.tool-ref td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}.tool-ref th{font-weight:600;color:var(--text-secondary);background:var(--bg-card)}.tool-ref td{color:var(--text-secondary)}.tool-ref code{font-family:var(--font);font-size:0.75rem;background:var(--bg-elevated);padding:2px 6px;border-radius:4px}.tool-ref pre{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;overflow-x:auto;font-family:var(--font);font-size:0.75rem;line-height:1.7;margin-bottom:16px}.tool-ref .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}.tool-ref .tip p{margin-bottom:0;font-size:0.78rem}
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://whetkit.me/"},{"@type":"ListItem","position":2,"name":"Text Diff Checker"}]}
@@ -200,6 +201,33 @@
         <button class="faq-q" aria-expanded="false"><span>What is the character limit?</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="faq-a"><div class="faq-a-inner">Both text areas accept large inputs. Very large files may slow down the browser since all processing happens client-side.</div></div>
       </div>
+    </div>
+
+    <div class="section-div" aria-hidden="true">Diff Algorithms Explained</div>
+    <div class="tool-ref">
+      <h3>How Diff Algorithms Work</h3>
+      <p>Text diffing finds the minimum set of changes (insertions, deletions) to transform one string into another. Different algorithms optimize for different goals:</p>
+
+      <h3>Algorithm Comparison</h3>
+      <table>
+        <thead><tr><th>Algorithm</th><th>Time</th><th>Output Quality</th><th>Used By</th></tr></thead>
+        <tbody>
+          <tr><td>Myers</td><td>O(n*m)</td><td>Good (minimal edits)</td><td>Git, most diff tools</td></tr>
+          <tr><td>Patience</td><td>O(n*m)</td><td>Better for code</td><td>Git (--diff-algorithm=patience)</td></tr>
+          <tr><td>LCS</td><td>O(n*m)</td><td>Optimal but slow</td><td>Textbooks, small inputs</td></tr>
+          <tr><td>Histogram</td><td>O(n*m)</td><td>Best for code</td><td>Git default (2.9+)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Line-Level vs Word-Level vs Char-Level</h3>
+      <pre><code>Line diff:   shows whole lines changed
+Word diff:   shows which words within a line changed
+Char diff:   shows individual character changes (most granular)
+
+// Example — char-level diff of "color" → "colour":
+// co- -l +ou- r</code></pre>
+
+      <div class="tip"><p><strong>Code review tip:</strong> Use word-level or char-level diffing for long lines (minified code, single-line configs). Line-level diffing on a 500-char line just shows the whole line as changed.</p></div>
     </div>
 
     <div class="section-div" aria-hidden="true">related tools</div>

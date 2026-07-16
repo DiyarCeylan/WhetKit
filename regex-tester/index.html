@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Regex Tester — Free, No Upload, Client-Side | WhetKit</title>
-  <meta name="description" content="Free online regex tester. Test regular expressions with real-time matching, highlighted results, and group capture. Privacy-first, runs client-side.">
+  <title>Regex Tester — Test Regular Expressions With Live Highlighting | WhetKit</title>
+  <meta name="description" content="Test JavaScript regex patterns with real-time match highlighting, group capture, and flag toggling. See matches instantly as you type your pattern and test string.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://whetkit.me/regex-tester/">
-  <meta property="og:title" content="Regex Tester — Free, No Upload, Client-Side | WhetKit">
-  <meta property="og:description" content="Free online regex tester. Test regular expressions with real-time matching, highlighted results, and group capture. Privacy-first, runs client-side.">
+  <meta property="og:title" content="Regex Tester — Test Regular Expressions With Live Highlighting | WhetKit">
+  <meta property="og:description" content="Test JavaScript regex patterns with real-time match highlighting, group capture, and flag toggling. See matches instantly as you type your pattern and test string.">
   <meta property="og:url" content="https://whetkit.me/regex-tester/">
   <meta property="og:image" content="https://whetkit.me/icon-512.svg">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Regex Tester — Free, No Upload, Client-Side | WhetKit">
-  <meta name="twitter:description" content="Free online regex tester. Test regular expressions with real-time matching, highlighted results, and group capture. Privacy-first, runs client-side.">
+  <meta name="twitter:title" content="Regex Tester — Test Regular Expressions With Live Highlighting | WhetKit">
+  <meta name="twitter:description" content="Test JavaScript regex patterns with real-time match highlighting, group capture, and flag toggling. See matches instantly as you type your pattern and test string.">
   <meta name="twitter:image" content="https://whetkit.me/icon-512.svg">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="../manifest.json">
@@ -104,6 +104,7 @@
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important}}
     @media print{header,footer,.theme-cursor,.btn-row{display:none}}
+    .tool-ref{max-width:900px;margin:0 auto 48px}.tool-ref h3{font-size:0.85rem;font-weight:700;margin-bottom:12px;letter-spacing:-0.02em;color:var(--text)}.tool-ref p{font-size:0.78rem;color:var(--text-secondary);line-height:1.8;margin-bottom:12px}.tool-ref table{width:100%;border-collapse:collapse;font-size:0.75rem;margin-bottom:16px}.tool-ref th,.tool-ref td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}.tool-ref th{font-weight:600;color:var(--text-secondary);background:var(--bg-card)}.tool-ref td{color:var(--text-secondary)}.tool-ref code{font-family:var(--font);font-size:0.75rem;background:var(--bg-elevated);padding:2px 6px;border-radius:4px}.tool-ref pre{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:14px 18px;overflow-x:auto;font-family:var(--font);font-size:0.75rem;line-height:1.7;margin-bottom:16px}.tool-ref .tip{border-left:3px solid var(--accent);padding:14px 18px;margin-bottom:16px;background:var(--bg-card);border-radius:0 6px 6px 0}.tool-ref .tip p{margin-bottom:0;font-size:0.78rem}
   </style>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://whetkit.me/"},{"@type":"ListItem","position":2,"name":"Regex Tester"}]}
@@ -190,6 +191,37 @@
         <button class="faq-q" aria-expanded="false"><span>What is the difference between test() and match()?</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
         <div class="faq-a"><div class="faq-a-inner">test() returns true/false if a match exists. match() returns the matched string and groups. The tool uses match() with detailed highlighting.</div></div>
       </div>
+    </div>
+
+    <div class="section-div" aria-hidden="true">Regex Cheat Sheet</div>
+    <div class="tool-ref">
+      <h3>Essential Patterns</h3>
+      <table>
+        <thead><tr><th>Pattern</th><th>Matches</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><code>.</code></td><td>Any character</td><td><code>a.c</code> → "abc", "a1c"</td></tr>
+          <tr><td><code>\d</code></td><td>Digit [0-9]</td><td><code>\d+</code> → "123"</td></tr>
+          <tr><td><code>\w</code></td><td>Word char [a-zA-Z0-9_]</td><td><code>\w+</code> → "hello_42"</td></tr>
+          <tr><td><code>\s</code></td><td>Whitespace</td><td><code>a\sb</code> → "a b"</td></tr>
+          <tr><td><code>^</code></td><td>Start of string</td><td><code>^Hello</code> → "Hello world"</td></tr>
+          <tr><td><code>$</code></td><td>End of string</td><td><code>world$</code> → "Hello world"</td></tr>
+          <tr><td><code>*</code></td><td>0 or more</td><td><code>ab*c</code> → "ac", "abc"</td></tr>
+          <tr><td><code>+</code></td><td>1 or more</td><td><code>ab+c</code> → "abc", "abbc"</td></tr>
+          <tr><td><code>?</code></td><td>0 or 1 (optional)</td><td><code>colou?r</code> → "color"</td></tr>
+          <tr><td><code>{n,m}</code></td><td>n to m times</td><td><code>\d{3}</code> → "123"</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Groups & Assertions</h3>
+      <pre><code>(abc)         — capture group
+(?:abc)        — non-capturing group
+(?&lt;name&gt;abc)   — named group
+a(?=b)         — positive lookahead (a followed by b)
+a(?!b)         — negative lookahead (a NOT followed by b)
+(?&lt;=a)b       — positive lookbehind (b preceded by a)
+(?&lt;!a)b       — negative lookbehind (b NOT preceded by a)</code></pre>
+
+      <div class="tip"><p><strong>Performance tip:</strong> Avoid catastrophic backtracking by not nesting quantifiers like <code>(a+)+</code>. Use atomic groups or possessive quantifiers where supported, and always test with long strings.</p></div>
     </div>
 
     <div class="section-div" aria-hidden="true">related tools</div>
