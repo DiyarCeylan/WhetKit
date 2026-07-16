@@ -44,10 +44,7 @@
     <loc>https://whetkit.me/text-diff-checker/</loc>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://whetkit.me/hex-to-hsl/</loc>
-    <priority>0.8</priority>
-  </url>
+
   <url>
     <loc>https://whetkit.me/base64-image-converter/</loc>
     <priority>0.8</priority>
