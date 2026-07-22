@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ailem Dijital — Ailenizin her şeyi, tek panoda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18335777853"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-18335777853');
+</script>
+<style>
+  :root{
+    --bg:#EFF1F6;
+    --surface:#FFFFFF;
+    --ink:#20242B;
+    --ink-soft:#5B6472;
+    --accent:#C1502E;
+    --accent-soft:#F3D9CD;
+    --sage:#5F7A63;
+    --sage-soft:#DDE7DD;
+    --yellow:#F0BD4A;
+    --line:rgba(32,36,43,0.10);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:radial-gradient(rgba(32,36,43,0.035) 1px, transparent 1px);
+    background-size:14px 14px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  header{position:relative;z-index:2;padding:28px 0;}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Fraunces',serif;font-weight:600;font-size:20px;letter-spacing:-0.01em;}
+  .logo span{color:var(--accent);font-style:italic;}
+  .nav-cta{
+    font-family:'Inter';font-weight:600;font-size:14px;
+    background:var(--ink);color:var(--bg);
+    padding:10px 18px;border-radius:999px;
+    text-decoration:none;
+  }
+
+  .hero{position:relative;z-index:2;padding:40px 0 80px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;
+    color:var(--accent);text-transform:uppercase;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);}
+  h1{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:clamp(34px,4.4vw,54px);
+    line-height:1.05;letter-spacing:-0.01em;
+    margin:0 0 20px;
+  }
+  h1 em{color:var(--accent);font-style:italic;font-weight:500;}
+  .sub{
+    font-size:17px;line-height:1.6;color:var(--ink-soft);
+    max-width:460px;margin:0 0 32px;
+  }
+
+  .board{
+    position:relative;
+    background:#DCCBAE;
+    border-radius:18px;
+    aspect-ratio:1/1;
+    box-shadow:0 24px 48px -20px rgba(32,36,43,0.35);
+    overflow:hidden;
+  }
+  .board::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1px);
+    background-size:9px 9px;
+  }
+  .note{
+    position:absolute;width:44%;
+    background:var(--surface);
+    border-radius:6px;
+    padding:14px 15px;
+    box-shadow:0 10px 20px -8px rgba(32,36,43,0.35);
+    font-size:13.5px;line-height:1.45;
+    opacity:0;transform:translateY(14px);
+    animation:rise .6s ease forwards;
+  }
+  .note .tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.05em;
+    text-transform:uppercase;color:var(--ink-soft);display:block;margin-bottom:6px;
+  }
+  .note b{font-weight:600;}
+  .note.n1{top:8%;left:6%;transform:rotate(-6deg);animation-delay:.1s;}
+  .note.n2{top:6%;right:6%;transform:rotate(4deg);animation-delay:.25s;border-left:4px solid var(--sage);}
+  .note.n3{bottom:22%;left:9%;transform:rotate(3deg);animation-delay:.4s;border-left:4px solid var(--yellow);}
+  .note.n4{bottom:8%;right:8%;transform:rotate(-4deg);animation-delay:.55s;border-left:4px solid var(--accent);}
+  @keyframes rise{to{opacity:1;transform:translateY(0) rotate(var(--r,0deg));}}
+  .note.n1{--r:-6deg;} .note.n2{--r:4deg;} .note.n3{--r:3deg;} .note.n4{--r:-4deg;}
+  .pin{
+    position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+    width:10px;height:10px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff, var(--accent) 60%);
+    box-shadow:0 2px 3px rgba(0,0,0,0.3);
+  }
+
+  @media (max-width:820px){
+    .hero-grid{grid-template-columns:1fr;}
+    .board{aspect-ratio:4/3;max-width:420px;margin:0 auto;}
+  }
+
+  section.modules{position:relative;z-index:2;padding:20px 0 70px;}
+  .section-head{max-width:520px;margin:0 0 36px;}
+  .section-head .eyebrow{color:var(--sage);}
+  .section-head .eyebrow::before{background:var(--sage);}
+  .section-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(24px,3vw,32px);margin:0;letter-spacing:-0.01em;}
+  .mod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .mod-card{
+    background:var(--surface);border-radius:var(--radius);
+    padding:22px 20px;border:1.5px solid var(--line);
+  }
+  .mod-card .ico{
+    width:38px;height:38px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;margin-bottom:14px;
+  }
+  .mod-card:nth-child(1) .ico{background:var(--accent-soft);}
+  .mod-card:nth-child(2) .ico{background:var(--sage-soft);}
+  .mod-card:nth-child(3) .ico{background:#FCE9C6;}
+  .mod-card:nth-child(4) .ico{background:#E3E6F0;}
+  .mod-card h3{font-family:'Inter';font-weight:600;font-size:15.5px;margin:0 0 6px;}
+  .mod-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.5;margin:0;}
+  .badge-premium{
+    display:inline-block;margin-top:10px;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.05em;
+    color:var(--accent);border:1px solid var(--accent-soft);background:var(--accent-soft);
+    padding:2px 8px;border-radius:999px;
+  }
+  @media (max-width:820px){.mod-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:520px){.mod-grid{grid-template-columns:1fr;}}
+
+  section.pricing{position:relative;z-index:2;padding:10px 0 80px;}
+  .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .price-card{
+    background:var(--surface);border:1.5px solid var(--line);border-radius:var(--radius);
+    padding:20px 18px;position:relative;
+  }
+  .price-card.hi{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+  .price-card .name{font-weight:600;font-size:14.5px;margin-bottom:6px;}
+  .price-card .num{font-family:'Fraunces',serif;font-size:26px;margin-bottom:2px;}
+  .price-card .num small{font-family:'Inter';font-size:12px;color:var(--ink-soft);font-weight:500;}
+  .price-note{font-size:12px;color:var(--ink-soft);margin-top:6px;}
+  .indicative{
+    text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    color:var(--ink-soft);letter-spacing:0.03em;margin-top:16px;
+  }
+  @media (max-width:820px){.price-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:520px){.price-grid{grid-template-columns:1fr;}}
+
+  section.final{position:relative;z-index:2;padding:60px 0 90px;}
+  .final-box{
+    background:var(--ink);color:var(--bg);
+    border-radius:22px;padding:52px 44px;
+    display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;
+  }
+  .final-box h2{font-family:'Fraunces',serif;font-weight:600;font-style:italic;font-size:clamp(24px,3.2vw,32px);margin:0 0 10px;}
+  .final-box p{color:#A9AEBA;font-size:14.5px;margin:0;max-width:400px;}
+  @media (max-width:820px){.final-box{grid-template-columns:1fr;}}
+
+  form.capture{display:flex;gap:10px;max-width:460px;flex-wrap:wrap;}
+  form.capture input[type=email]{
+    flex:1 1 220px;min-width:0;
+    padding:14px 16px;border-radius:10px;border:1.5px solid var(--line);
+    background:var(--surface);font-family:'Inter';font-size:15px;color:var(--ink);
+    outline-offset:2px;
+  }
+  form.capture input[type=email]:focus-visible{outline:2px solid var(--accent);}
+  form.capture button{
+    font-family:'Inter';font-weight:600;font-size:15px;
+    background:var(--accent);color:#fff;border:none;
+    padding:14px 22px;border-radius:10px;cursor:pointer;
+    transition:transform .15s ease, background .15s ease;
+    white-space:nowrap;
+  }
+  form.capture button:hover{background:#A6431F;}
+  form.capture button:active{transform:scale(0.97);}
+  .micro{font-size:13px;color:var(--ink-soft);margin-top:12px;}
+  .micro strong{color:var(--accent);}
+  .success-box{
+    display:none;max-width:460px;
+    background:var(--sage-soft);border:1.5px solid var(--sage);
+    border-radius:12px;padding:18px 20px;font-size:15px;
+  }
+  .success-box strong{display:block;font-family:'Fraunces',serif;font-size:18px;margin-bottom:4px;}
+
+  .kvkk{
+    font-size:11.5px;color:var(--ink-soft);line-height:1.5;
+    max-width:460px;margin-top:14px;
+  }
+  .kvkk a{text-decoration:underline;}
+
+  footer{position:relative;z-index:2;padding:28px 0 50px;border-top:1px solid var(--line);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">Ailem <span>Dijital</span></div>
+    <a href="#kayit" class="nav-cta">Bekleme Listesine Katıl</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Çok Yakında</div>
+      <h1>Ailenizin her şeyi,<br><em>tek panoda.</em></h1>
+      <p class="sub">Takvim, sağlık, bütçe ve notlar — hepsi Türkçe, hepsi tek uygulamada. Ailem Dijital'i birlikte şekillendirecek ilk kullanıcılar arasına katılın.</p>
+    </div>
+
+    <div class="board" aria-hidden="true">
+      <div class="note n1"><div class="pin"></div><span class="tag">📅 Takvim</span><b>Ayşe'nin diş randevusu</b><br>Salı, 14:00</div>
+      <div class="note n2"><div class="pin"></div><span class="tag">💊 Sağlık</span><b>Baba — tansiyon ilacı</b><br>Her sabah 08:00</div>
+      <div class="note n3"><div class="pin"></div><span class="tag">💰 Bütçe</span><b>Market bütçesi</b><br>%82 dolu bu ay</div>
+      <div class="note n4"><div class="pin"></div><span class="tag">📝 Not</span><b>Yaz tatili listesi</b><br>6 madde eklendi</div>
+    </div>
+  </div>
+</section>
+
+<section class="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Ne Sunuyor</div>
+      <h2>Dört ayrı uygulama yerine, tek bir aile panosu.</h2>
+    </div>
+    <div class="mod-grid">
+      <div class="mod-card">
+        <div class="ico">📅</div>
+        <h3>Aile Takvimi</h3>
+        <p>Tüm aile üyelerinin etkinlik ve randevuları tek görünümde. Günlük, haftalık, aylık.</p>
+      </div>
+      <div class="mod-card">
+        <div class="ico">💊</div>
+        <h3>Sağlık Takibi</h3>
+        <p>İlaç saatleri, doktor randevuları, sağlık kayıtları — zamanında hatırlatmayla.</p>
+        <span class="badge-premium">Premium</span>
+      </div>
+      <div class="mod-card">
+        <div class="ico">💰</div>
+        <h3>Bütçe Yönetimi</h3>
+        <p>Aile giderlerini kategorilere ayırın, bütçe aşıldığında otomatik uyarı alın.</p>
+        <span class="badge-premium">Premium</span>
+      </div>
+      <div class="mod-card">
+        <div class="ico">📝</div>
+        <h3>Not & Hatırlatıcılar</h3>
+        <p>Önemli notları ve yapılacakları kaydedin, tam zamanında hatırlatılsın.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Planlar</div>
+      <h2>Fiyatlar lansmana kadar netleşiyor.</h2>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="name">Ücretsiz</div>
+        <div class="num">₺0<small>/ay</small></div>
+        <div class="price-note">3 aile üyesi, takvim + notlar</div>
+      </div>
+      <div class="price-card hi">
+        <div class="name">Standart</div>
+        <div class="num">₺99<small>/ay</small></div>
+        <div class="price-note">+ Sağlık takibi</div>
+      </div>
+      <div class="price-card">
+        <div class="name">Aile</div>
+        <div class="num">₺199<small>/ay</small></div>
+        <div class="price-note">+ Bütçe yönetimi, sınırsız üye</div>
+      </div>
+      <div class="price-card">
+        <div class="name">Kurumsal</div>
+        <div class="num">₺349<small>/ay</small></div>
+        <div class="price-note">Çoklu aile / kurum kullanımı</div>
+      </div>
+    </div>
+    <div class="indicative">GÖSTERİLEN FİYATLAR TASLAKTIR — LANSMANDA DEĞİŞEBİLİR</div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <div class="final-box" id="kayit">
+      <div>
+        <h2>Sırada olmak ister misiniz?</h2>
+        <p>E-postanızı bırakın, Ailem Dijital hazır olduğunda ilk siz haber alın.</p>
+      </div>
+      <div>
+        <form class="capture" id="signupForm">
+          <input type="email" id="emailInput" placeholder="e-posta adresiniz" required autocomplete="email">
+          <button type="submit" id="submitBtn">Katıl</button>
+        </form>
+        <div class="success-box" id="successBox">
+          <strong>Kaydınız alındı 🎉</strong>
+          Lansman tarihini ve erken erişim fırsatını ilk siz öğreneceksiniz.
+        </div>
+        <p class="micro" id="microCopy"><strong>Erken erişim kullanıcılarına</strong> 3 ay boyunca ücretsiz Aile planı hediye.</p>
+        <p class="kvkk" id="kvkkText">
+          E-posta adresiniz yalnızca lansman ve erken erişim bildirimleri için kullanılır, üçüncü taraflarla paylaşılmaz.
+          Detaylı bilgi için <a href="#">Gizlilik Politikamızı</a> inceleyebilirsiniz.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Ailem Dijital — yapım aşamasında.</span>
+    <span>Bu sayfa bir talep testidir, uygulama henüz canlı değildir.</span>
+  </div>
+</footer>
+
+<script>
+  const SUPABASE_URL = 'https://sipdypfuugrfwtohgfpo.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpcGR5cGZ1dWdyZnd0b2hnZnBvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQyMTE5OTYsImV4cCI6MjA5OTc4Nzk5Nn0.Tf0l6wIx0KCln74GTQADA7SRQdQRyN7RLdgTlzsO2pQ';
+
+  function gtagReportConversion(url) {
+    var callback = function () {
+      if (typeof(url) != 'undefined') {
+        window.location = url;
+      }
+    };
+    gtag('event', 'conversion', {
+      'send_to': 'AW-XXXXXXXXXX/XXXXXXXXXXXXXXXXXX',
+      'event_callback': callback
+    });
+  }
+
+  var form = document.getElementById('signupForm');
+  var emailInput = document.getElementById('emailInput');
+  var submitBtn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var email = emailInput.value.trim();
+    if (!email) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Kaydediliyor...';
+
+    try {
+      var response = await fetch(SUPABASE_URL + '/rest/v1/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ email: email })
+      });
+
+      if (!response.ok) {
+        var err = await response.json();
+        if (err.code === '23505') {
+          showSuccess();
+          return;
+        }
+        throw new Error(err.message || 'Kayıt başarısız');
+      }
+
+      showSuccess();
+      gtagReportConversion();
+
+    } catch (err) {
+      console.error('Waitlist error:', err);
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Katıl';
+      alert('Bir hata oluştu, lütfen tekrar deneyin.');
+    }
+  });
+
+  function showSuccess() {
+    window.location.href = '/tesekkurler.html';
+  }
+</script>
+
+</body>
+</html>
