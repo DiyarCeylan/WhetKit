@@ -18,21 +18,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  window._gtagLoaded = false;
-  function loadGoogleTag() {
-    if (window._gtagLoaded) return;
-    window._gtagLoaded = true;
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18335777853';
-    document.head.appendChild(s);
-    gtag('js', new Date());
-    gtag('config', 'AW-18335777853');
-  }
-</script>
 <style>
   :root{
     --bg:#EFF1F6;
@@ -743,14 +728,11 @@
 
   if (!cookieConsent) {
     setTimeout(function() { cookieBanner.classList.add('show'); }, 1500);
-  } else if (cookieConsent === 'accepted') {
-    loadGoogleTag();
   }
 
   function acceptCookies() {
     localStorage.setItem('cookie_consent', 'accepted');
     cookieBanner.classList.remove('show');
-    loadGoogleTag();
   }
 
   function rejectCookies() {
